@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+<!-- <meta name="referrer" content="never"/> -->
+
+<style>
+#footer .footer-inner .powered-by{
+display: none;
+}
+#footer .footer-inner .post-meta-divider{
+display: none;
+}
+#footer .footer-inner .theme-info{
+display: none;
+}
+#comments.comments .info{
+display: none !important;
+}
+</style>
+<script>
+  function blogLog() {
+    if (window.location.hostname.indexOf('zhoujie16') !== -1) {
+      var url = 'https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog'
+      var href = window.location.href
+      $.post(url, {
+        href: decodeURIComponent(href)
+      })
+    }
+  }
+
+  window.onload = function () {
+    console.log('window onload')
+    setTimeout(function () {
+      blogLog()
+    }, 2000)
+  }
+</script>
+
+  <meta name="description" content="变量在程序中随处可见。它们是一些始终在相互影响，相互作用的的数据和逻辑。正是这些互动使应用程序活了起来。 在JavaScript中使用变量很重要的一方面就是变量的提升 —— 它决定了一个变量何时可以被你的代码使用。如果你在寻找关于这方面的详细介绍，那你算是来对地方了。让我们一起看看吧。 1. 简介提升是一种将变量和函数的声明移到函数作用域(如果不在任何函数内的话就是全局作用域)最顶部的机制。 提升">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解JavaScript变量提升">
+<meta property="og:url" content="http://zhoujie16.cn/2019/04/02/我的文章/详解JavaScript变量提升/index.html">
+<meta property="og:site_name" content="ZJ_16">
+<meta property="og:description" content="变量在程序中随处可见。它们是一些始终在相互影响，相互作用的的数据和逻辑。正是这些互动使应用程序活了起来。 在JavaScript中使用变量很重要的一方面就是变量的提升 —— 它决定了一个变量何时可以被你的代码使用。如果你在寻找关于这方面的详细介绍，那你算是来对地方了。让我们一起看看吧。 1. 简介提升是一种将变量和函数的声明移到函数作用域(如果不在任何函数内的话就是全局作用域)最顶部的机制。 提升">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-25T09:27:54.027Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="详解JavaScript变量提升">
+<meta name="twitter:description" content="变量在程序中随处可见。它们是一些始终在相互影响，相互作用的的数据和逻辑。正是这些互动使应用程序活了起来。 在JavaScript中使用变量很重要的一方面就是变量的提升 —— 它决定了一个变量何时可以被你的代码使用。如果你在寻找关于这方面的详细介绍，那你算是来对地方了。让我们一起看看吧。 1. 简介提升是一种将变量和函数的声明移到函数作用域(如果不在任何函数内的话就是全局作用域)最顶部的机制。 提升">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://zhoujie16.cn/2019/04/02/我的文章/详解JavaScript变量提升/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>详解JavaScript变量提升 | ZJ_16</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZJ_16</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">ZJ_16的个人网站</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">1</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">57</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhoujie16.cn/2019/04/02/我的文章/详解JavaScript变量提升/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周杰">
+      <meta itemprop="description" content="没有高深的知识，没有进阶的技巧。只是，万丈高楼平地起，千里之行始于足下，千里长提溃于蚁穴。能把简单的做好就是不简单，你能走多远，不是在于你有多聪明，而是取决于你有多勤奋，共勉。">
+      <meta itemprop="image" content="http://pic1.zhoujie16.cn/20190725175920.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZJ_16">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">详解JavaScript变量提升
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-02 18:01:49" itemprop="dateCreated datePublished" datetime="2019-04-02T18:01:49+08:00">2019-04-02</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-25 17:27:54" itemprop="dateModified" datetime="2019-07-25T17:27:54+08:00">2019-07-25</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/04/02/我的文章/详解JavaScript变量提升/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/02/我的文章/详解JavaScript变量提升/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>变量在程序中随处可见。它们是一些始终在相互影响，相互作用的的数据和逻辑。正是这些互动使应用程序活了起来。</p>
+<p>在JavaScript中使用变量很重要的一方面就是变量的提升 —— 它决定了一个变量何时可以被你的代码使用。如果你在寻找关于这方面的详细介绍，那你算是来对地方了。让我们一起看看吧。</p>
+<h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h3><p><strong>提升</strong>是一种将变量和函数的声明移到函数作用域(如果不在任何函数内的话就是全局作用域)最顶部的机制。</p>
+<p>提升影响了变量的生命周期，一个变量的生命周期包含3个阶段：</p>
+<ul>
+<li><strong>声明</strong> - 创建一个新变量，例如<code>var myValue</code></li>
+<li><strong>初始化</strong> - 用一个值初始化变量 例如<code>myValue = 150</code></li>
+<li><strong>使用</strong> - 使用变量的值 例如<code>alert(myValue)</code></li>
+</ul>
+<p>这个过程通常是像这样执行的：首先<em>声明</em>一个变量，然后用一个值给它<em>初始化</em>，最后就是<em>使用</em>它。让我们看一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明</span></span><br><span class="line"><span class="keyword">var</span> strNumber;</span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">strNumber = <span class="string">'16'</span>;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="built_in">parseInt</span>(strNumber); <span class="comment">// =&gt; 16</span></span><br></pre></td></tr></table></figure>
+
+<p>在程序中一个函数可以先<em>声明</em>，后<em>使用</em>。<em>初始化</em>被忽略掉了。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line">sum(<span class="number">5</span>, <span class="number">6</span>);<span class="comment">// =&gt; 11</span></span><br></pre></td></tr></table></figure>
+
+<p>当这三个步骤按顺序执行的时候，一切看起来都很简单，自然。如果可以话，在使用JavaScript编程的时候你应该遵循这种模式。</p>
+<p>JavaScript并没有严格遵循这个顺序，因此提供了更多的灵活性。比如，函数的使用可以在声明之前。下边的例子先调用了函数<code>double(5)</code>，然后才声明该函数<code>function double(num) {...}</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用</span></span><br><span class="line">double(<span class="number">5</span>); <span class="comment">// =&gt; 1</span></span><br><span class="line"><span class="comment">// 声明</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> num * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是因为JavaScript中的函数声明会被提升到作用域顶部。</p>
+<p>变量提升在不同方面的影响也不同：</p>
+<ul>
+<li>变量声明: 使用<code>var</code>, <code>let</code>或<code>const</code>关键字</li>
+<li>函数声明: 使用<code>function () {...}</code>语法</li>
+<li>类声明: 使用<code>class</code>关键字</li>
+</ul>
+<p>接下来让我们详细看看这些区别。</p>
+<h3 id><a href="#" class="headerlink" title=" "></a> </h3><h3 id="2-函数作用域变量-var"><a href="#2-函数作用域变量-var" class="headerlink" title="2. 函数作用域变量: var"></a>2. 函数作用域变量: <code>var</code></h3><p>变量声明在函数作用域内创建并初始化一个变量，例如<code>var myVar, myVar2 = &#39;Init&#39;</code>。默认情况下，声明但是未初始化的变量的值是<code>undefined</code>。</p>
+<p>自从JavaScript的第一版本开始，开发者就在使用这种方式声明变量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明变量num</span></span><br><span class="line"><span class="keyword">var</span> num;</span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// =&gt; undefined</span></span><br><span class="line"><span class="comment">// 声明并初始化变量str</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">'Hello World!'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str); <span class="comment">// =&gt; 'Hello World!'</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="提升与var"><a href="#提升与var" class="headerlink" title="提升与var"></a>提升与<code>var</code></h4><p>使用<code>var</code>声明的变量会被提升到所在函数作用域的顶部。如果在声明之前访问该变量，它的值会是<code>undefined</code>。</p>
+<p>假定<code>myVariable</code>在被<code>var</code>声明前被访问到。在这种情况下，声明操作会被<strong>移至double()函数的顶部</strong>同时该变量会被赋值<code>undefined</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myVariable); <span class="comment">// =&gt; undefined</span></span><br><span class="line">  <span class="keyword">var</span> myVariable;</span><br><span class="line">  <span class="keyword">return</span> num * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double(<span class="number">3</span>); <span class="comment">// =&gt; 6</span></span><br></pre></td></tr></table></figure>
+
+<p>JavaScript在执行代码时相当于把<code>var myVariable</code>移动到了<code>double()</code>的顶部，就像下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> myVariable;          <span class="comment">// 被移动到顶部</span></span><br><span class="line">  <span class="built_in">console</span>.log(myVariable); <span class="comment">// =&gt; undefined  </span></span><br><span class="line">  <span class="keyword">return</span> num * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double(<span class="number">3</span>); <span class="comment">// =&gt; 6</span></span><br></pre></td></tr></table></figure>
+
+<p><code>var</code>语法不仅可以声明变量，还可以在声明的同时赋给变量一个初始值：<code>var str = &#39;initial value&#39;</code>。当变量被提升时，声明会被移动到作用域顶部，但是初始值的赋值却会<strong>留在原地</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(myString); <span class="comment">// =&gt; undefined  </span></span><br><span class="line">  <span class="keyword">var</span> myString = <span class="string">'Hello World'</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(myString); <span class="comment">// =&gt; 'Hello World'  </span></span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(<span class="number">16</span>, <span class="number">10</span>); <span class="comment">// =&gt; 26</span></span><br></pre></td></tr></table></figure>
+
+<p><code>var myString</code>被提升到作用域的顶部，然而初始值的赋值操作<code>myString = &#39;Hello World&#39;</code>不会受到影响。上边的代码等价于下边的形式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> myString;             <span class="comment">// 提升到顶部  </span></span><br><span class="line">  <span class="built_in">console</span>.log(myString);    <span class="comment">// =&gt; undefined  </span></span><br><span class="line">  myString = <span class="string">'Hello World'</span>; <span class="comment">// 赋值不受影响  </span></span><br><span class="line">  <span class="built_in">console</span>.log(myString);    <span class="comment">// =&gt; 'Hello World'  </span></span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(<span class="number">16</span>, <span class="number">10</span>); <span class="comment">// =&gt; 26</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h3><h3 id="3-块级作用域变量-let"><a href="#3-块级作用域变量-let" class="headerlink" title="3. 块级作用域变量: let"></a>3. 块级作用域变量: <code>let</code></h3><p>let声明在块级作用域内创建并初始化一个变量：<code>let myVar, myVar2 = &#39;Init&#39;</code>。默认情况下，声明但是未初始化的变量的值是<code>undefined</code>。</p>
+<p><code>let</code>是ECMAScript 6引入的一个巨大改进，它允许代码在代码块的级别上保持模块性和封装性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="comment">// 声明块级变量</span></span><br><span class="line">  <span class="keyword">let</span> month;</span><br><span class="line">  <span class="built_in">console</span>.log(month); <span class="comment">// =&gt; undefined</span></span><br><span class="line">  <span class="comment">// 声明并初始化块级变量</span></span><br><span class="line">  <span class="keyword">let</span> year = <span class="number">1994</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(year); <span class="comment">// =&gt; 1994</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 在代码块外部不能访问month和year变量</span></span><br><span class="line"><span class="built_in">console</span>.log(year); <span class="comment">// ReferenceError: year is not defined</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="-2"><a href="#-2" class="headerlink" title=" "></a> </h4><h4 id="提升与let"><a href="#提升与let" class="headerlink" title="提升与let"></a>提升与<code>let</code></h4><p>使用<code>let</code>定义的变量会被提升到代码块的顶部。但是如果在声明前访问该变量，JavaScript会抛出异常<code>ReferenceError: is not defined</code>。</p>
+<p>在声明语句一直到代码库的顶部，变量都好像在一个<em>临时死亡区间</em>中一样，不能被访问。</p>
+<p>让我们看看以下的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isTruthy</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> myVariable = <span class="string">'Value 1'</span>;</span><br><span class="line">  <span class="keyword">if</span> (value) &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * myVariable的临时死亡区间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="comment">// Throws ReferenceError: myVariable is not defined</span></span><br><span class="line">    <span class="built_in">console</span>.log(myVariable);</span><br><span class="line">    <span class="keyword">let</span> myVariable = <span class="string">'Value 2'</span>;</span><br><span class="line">    <span class="comment">// myVariable的临时死亡区间至此结束</span></span><br><span class="line">    <span class="built_in">console</span>.log(myVariable); <span class="comment">// =&gt; 'Value 2</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">isTruthy(<span class="number">1</span>); <span class="comment">// =&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<p>从<code>let myVariable</code>一行一直到代码块开始的<code>if (valaue) {...}</code>都是<code>myVariable</code>变量的临时死亡区间。如果在此区间内访问该变量，JavaScript会抛出<code>ReferenceError</code>异常。</p>
+<p>一个有趣的问题出现了：<code>myVariable</code>真的被<strong>提升</strong>到代码块顶部了吗？还是在临时死亡区间内<strong>未定义</strong>呢？当一个变量未被定义时，JavaScript也会抛出<code>ReferenceError</code>。</p>
+<p>如果你观察一下该函数的开始部分就会发现，<code>var myVariable = &#39;Value 1&#39;</code>在整个函数作用域内定义了一个名为<code>myVariable</code>的变量。在<code>if (value) {...}</code>块内，如果<code>let</code>定义的变量没有被提升，那么在临时死亡区间内<code>myVariable</code>的值就会是<code>&#39;Value1&#39;</code>了。由此我们可以确认块级变量确实被提升了。</p>
+<p>``</p>
+<p><code>let</code>在块级作用域内的提升保护了变量不受外层作用域影响。在临时死亡区间内访问<code>let</code>定义的变量时抛出异常会促使开发者遵循更好的编码实践：先声明，后使用。</p>
+<p>这两个限制是促使在封装性和代码流程方面编写更好的JavaScript的有效途径。这是基于<code>var</code>用法教训的结果 —— 允许在声明之前访问变量很容易造成误解。</p>
+<h3 id="-3"><a href="#-3" class="headerlink" title=" "></a> </h3><h3 id="4-常量-const"><a href="#4-常量-const" class="headerlink" title="4. 常量: const"></a>4. 常量: <code>const</code></h3><p>常量声明在块级作用域内创建并初始化一个常量：<code>const MY_CONST = &#39;Value&#39;, MY_CONST2 = &#39;Value 2&#39;</code>。看看下边的示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> COLOR = <span class="string">'red'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(COLOR); <span class="comment">// =&gt; 'red'</span></span><br><span class="line"><span class="keyword">const</span> ONE = <span class="number">1</span>, HALF = <span class="number">0.5</span>;</span><br><span class="line"><span class="built_in">console</span>.log(ONE);   <span class="comment">// =&gt; 1</span></span><br><span class="line"><span class="built_in">console</span>.log(HALF);  <span class="comment">// =&gt; 0.5</span></span><br></pre></td></tr></table></figure>
+
+<p>当声明一个变量时，必须在同一条语句中对该变量进行初始化。在声明与初始化之后，变量的值不能被修改。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PI = <span class="number">3.14</span>;</span><br><span class="line"><span class="built_in">console</span>.log(PI); <span class="comment">// =&gt; 3.14</span></span><br><span class="line">PI = <span class="number">2.14</span>; <span class="comment">// TypeError: Assignment to constant variable</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="-4"><a href="#-4" class="headerlink" title=" "></a> </h4><h4 id="提升与const"><a href="#提升与const" class="headerlink" title="提升与const"></a>提升与<code>const</code></h4><p>使用<code>const</code>定义的常量会被提升到代码块的顶部。</p>
+<p>由于存在临时死亡区间，常量在声明之前不能被访问。如果在声明之前访问常量，JavaScript会抛出异常：<code>ReferenceError: is not defined</code>。</p>
+<p><code>const</code>声明常量的提升的效果与使用<code>let</code>声明变量的提升效果相同。</p>
+<p>让我们在<code>double()</code>函数内声明一个常量:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">double</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line">   <span class="comment">// 常量TWO的临时死亡区间</span></span><br><span class="line">   <span class="built_in">console</span>.log(TWO); <span class="comment">// ReferenceError: TWO is not defined</span></span><br><span class="line">   <span class="keyword">const</span> TWO = <span class="number">2</span>;</span><br><span class="line">   <span class="comment">// 常量TWO的临时死亡区间至此结束</span></span><br><span class="line">   <span class="keyword">return</span> number * TWO;</span><br><span class="line">&#125;</span><br><span class="line">double(<span class="number">5</span>); <span class="comment">// =&gt; 10</span></span><br></pre></td></tr></table></figure>
+
+<p>由于在声明之前使用常量会导致JavaScript抛出异常。因此使用常量时应该始终先声明，初始化，然后再使用。</p>
+<h3 id="5-函数声明"><a href="#5-函数声明" class="headerlink" title="5. 函数声明"></a>5. 函数声明</h3><p>函数声明使用提供的名称和参数创建一个函数。</p>
+<p>一个函数声明的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isOdd</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> number % <span class="number">2</span> === <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">isOdd(<span class="number">5</span>); <span class="comment">// =&gt; true</span></span><br></pre></td></tr></table></figure>
+
+<p><code>function isOdd(number) {...}</code>就是一段定义函数的声明。<code>isOdd()</code>用来验证一个数字是否是奇数。</p>
+<h4 id="-5"><a href="#-5" class="headerlink" title=" "></a> </h4><h4 id="提升与函数声明"><a href="#提升与函数声明" class="headerlink" title="提升与函数声明"></a>提升与函数声明</h4><p>函数声明的提升允许你在所属作用域内任何地方使用该函数，即使是在声明之前也可以。换句话说，函数可以在当前作用域或子作用域内的任何地方访问(不会是<code>undefined</code>值，没有临时死亡区间，不会抛出异常)。</p>
+<p>这种提升的行为非常灵活。不管是先使用，后声明，还是先声明，后使用都可以如你所愿。</p>
+<p>下边的例子在开始的地方调用了一个函数，然后才定义它：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调用被提升的函数</span></span><br><span class="line">equal(<span class="number">1</span>, <span class="string">'1'</span>); <span class="comment">// =&gt; false</span></span><br><span class="line"><span class="comment">// 函数声明</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">equal</span>(<span class="params">value1, value2</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> value1 === value2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码可以正常执行是因为<code>equal()</code>被提升到了作用域顶部。</p>
+<p>需要注意的<strong>函数声明</strong><code>function () {...}</code>和<strong>函数表达式</strong> <code>var = function() {...}</code>之间的区别。两者都用于创建函数，但是却有着不同的提升机制。</p>
+<p>下边的例子演示了该区别：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调用被提升的函数</span></span><br><span class="line">addition(<span class="number">4</span>, <span class="number">7</span>); <span class="comment">// =&gt; 11</span></span><br><span class="line"><span class="comment">// 变量被提升了，但值是undefined</span></span><br><span class="line">substraction(<span class="number">10</span>, <span class="number">7</span>); <span class="comment">// TypeError: substraction is not a function</span></span><br><span class="line"><span class="comment">// 函数声明</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addition</span>(<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 函数表达式</span></span><br><span class="line"><span class="keyword">var</span> substraction = <span class="function"><span class="keyword">function</span> (<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> num1 - num2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>addition</code>被彻底的提升并且可以在声明之前被调用。</p>
+<p>然而<code>substraction</code>是使用变量声明语句声明的，虽然也被提升了，但被调用时值是<code>undefined</code>。因此会抛出异常<code>TypeError: substraction is not a function</code>。</p>
+<h3 id="-6"><a href="#-6" class="headerlink" title=" "></a> </h3><h3 id="6-类声明"><a href="#6-类声明" class="headerlink" title="6. 类声明"></a>6. 类声明</h3><p>类声明使用提供的名称和参数创建一个构造函数。类是ECMAScript 6中引入的一项巨大改进。</p>
+<p>类建立在JavaScript的原型继承之上并提供了诸如<code>super</code>(访问父类)，<code>static</code>(定义静态方法)，<code>extends</code>(定义子类)之类的额外功能。</p>
+<p>一起看看如何声明一个类并创建一个实例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">   <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">     <span class="keyword">this</span>.x = x;</span><br><span class="line">     <span class="keyword">this</span>.y = y;</span><br><span class="line">   &#125;</span><br><span class="line">   move(dX, dY) &#123;</span><br><span class="line">     <span class="keyword">this</span>.x += dX;</span><br><span class="line">     <span class="keyword">this</span>.y += dY;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建实例</span></span><br><span class="line"><span class="keyword">var</span> origin = <span class="keyword">new</span> Point(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 调用实例的方法</span></span><br><span class="line">origin.move(<span class="number">50</span>, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="-7"><a href="#-7" class="headerlink" title=" "></a> </h4><h4 id="提升与class"><a href="#提升与class" class="headerlink" title="提升与class"></a>提升与<code>class</code></h4><p>类声明会被提升到块级作用域的顶部。但是如果你在声明前使用类，JavaScript会抛出异常<code>ReferenceError: is not defined</code>。所以正确的方法是先<em>声明</em>类，然后再<em>使用</em>它创建实例。</p>
+<p>类声明的提升与<code>let</code>定义变量的提升效果类似。</p>
+<p>让我们看看在声明之前创建类实例会怎样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用Company类</span></span><br><span class="line"><span class="comment">// 抛出ReferenceError: Company is not defined</span></span><br><span class="line"><span class="keyword">var</span> apple = <span class="keyword">new</span> Company(<span class="string">'Apple'</span>);</span><br><span class="line"><span class="comment">// 类声明</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Company</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 在声明之后使用Company类</span></span><br><span class="line"><span class="keyword">var</span> microsoft = <span class="keyword">new</span> Company(<span class="string">'Microsoft'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>和预期的一样，在类定义之前执行<code>new Company(&#39;Apple&#39;)</code>会抛出<code>ReferenceError</code>异常。这很不错，因为JavaScript鼓励先声明后使用的方式。</p>
+<p>还可以用使用了变量声明语句(<code>var</code>，<code>let</code>和<code>const</code>)的类表达式创建类。让我们看看下面的场景：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用Sqaure类</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Square);   <span class="comment">// =&gt; 'undefined'</span></span><br><span class="line"><span class="comment">//Throws TypeError: Square is not a constructor</span></span><br><span class="line"><span class="keyword">var</span> mySquare = <span class="keyword">new</span> Square(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用变量声明语句声明类</span></span><br><span class="line"><span class="keyword">var</span> Square = <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(sideLength) &#123;</span><br><span class="line">    <span class="keyword">this</span>.sideLength = sideLength;</span><br><span class="line">  &#125;</span><br><span class="line">  getArea() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.pow(<span class="keyword">this</span>.sideLength, <span class="number">2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 在声明之后使用Square类</span></span><br><span class="line"><span class="keyword">var</span> otherSquare = <span class="keyword">new</span> Square(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这个类使用变量声明语句<code>var Square = class {...}</code>定义。<code>Square</code>变量被提升到了作用域的顶部，但是直到声明该变量的这行代码之前其值都是<code>undefined</code>。因此<code>var mySquare = new Square(10)</code>语句相当于把<code>undefined</code>当作构造函数使用，这导致JavaScript抛出<code>TypeError: Square is not a constructor</code>异常。</p>
+<h3 id="-8"><a href="#-8" class="headerlink" title=" "></a> </h3><h3 id="7-最后的想法"><a href="#7-最后的想法" class="headerlink" title="7. 最后的想法"></a>7. 最后的想法</h3><p>像在本文阐述的那样，JavaScript中的提升有多种形式。即使你知道它的工作方式，一般还是建议按照声明 &gt; 初始化 &gt; 使用的顺序使用变量。通过<code>let</code>，<code>const</code>和<code>class</code>提升的方式可以看出ECMAScript 6强烈支持这种使用方式。这将使你免于遇见不期望的变量，<code>undefined</code>以及<code>ReferenceError</code>的困扰。</p>
+<p>有一种函数可以在定义之前执行的例外情况。这就是当开发者需要快速了解函数如何被调用的时候，因为这样就不必再滚动到底部阅读函数的具体实现方式了。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="周杰 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.jpg" alt="周杰 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/30/我的文章/论程序员的赌博式编程/" rel="next" title="论程序员的赌博式编程">
+                <i class="fa fa-chevron-left"></i> 论程序员的赌博式编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/03/我的文章/图解Javascript上下文与作用域/" rel="prev" title="图解Javascript上下文与作用域">
+                图解Javascript上下文与作用域 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://pic1.zhoujie16.cn/20190725175920.png" alt="周杰">
+            
+              <p class="site-author-name" itemprop="name">周杰</p>
+              <div class="site-description motion-element" itemprop="description">没有高深的知识，没有进阶的技巧。只是，万丈高楼平地起，千里之行始于足下，千里长提溃于蚁穴。能把简单的做好就是不简单，你能走多远，不是在于你有多聪明，而是取决于你有多勤奋，共勉。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-简介"><span class="nav-number">1.</span> <span class="nav-text">1. 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-函数作用域变量-var"><span class="nav-number">3.</span> <span class="nav-text">2. 函数作用域变量: var</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提升与var"><span class="nav-number">3.1.</span> <span class="nav-text">提升与var</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-number">4.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-块级作用域变量-let"><span class="nav-number">5.</span> <span class="nav-text">3. 块级作用域变量: let</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#-2"><span class="nav-number">5.1.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提升与let"><span class="nav-number">5.2.</span> <span class="nav-text">提升与let</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-3"><span class="nav-number">6.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-常量-const"><span class="nav-number">7.</span> <span class="nav-text">4. 常量: const</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#-4"><span class="nav-number">7.1.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提升与const"><span class="nav-number">7.2.</span> <span class="nav-text">提升与const</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-函数声明"><span class="nav-number">8.</span> <span class="nav-text">5. 函数声明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#-5"><span class="nav-number">8.1.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提升与函数声明"><span class="nav-number">8.2.</span> <span class="nav-text">提升与函数声明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-6"><span class="nav-number">9.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-类声明"><span class="nav-number">10.</span> <span class="nav-text">6. 类声明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#-7"><span class="nav-number">10.1.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提升与class"><span class="nav-number">10.2.</span> <span class="nav-text">提升与class</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-8"><span class="nav-number">11.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-最后的想法"><span class="nav-number">12.</span> <span class="nav-text">7. 最后的想法</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">周杰</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'FACWrlWQfYlbP4DQNHWwWEEU-9Nh9j0Va',
+    appKey: 'v6nHIKG1Dokj9WE70FmH8HWW',
+    placeholder: '留个言吧 ~ 😊',
+    avatar: 'mp',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
