@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[jsbase64]]></title>
+    <url>%2F2019%2F08%2F23%2Fjsbase64%2F</url>
+    <content type="text"><![CDATA[123456789101112131415161718const CryptoJS = require('crypto-js')function base64Encode(str) &#123; const parseStr = CryptoJS.enc.Utf8.parse(str); const base64 = CryptoJS.enc.Base64.stringify(parseStr); return base64&#125;function base64Decode(str)&#123; const words = CryptoJS.enc.Base64.parse(str); const parseStr = words.toString(CryptoJS.enc.Utf8); return parseStr&#125;module.exports = &#123; base64Encode, base64Decode&#125;]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[Vue课件准备]]></title>
     <url>%2F2019%2F07%2F29%2FVue%E8%AF%BE%E4%BB%B6%E5%87%86%E5%A4%87%2F</url>
     <content type="text"><![CDATA[一、Vue介绍问 ​ 有没有看过vue文档，看完的，看过一点的​ 会不会用vue脚手架 运行一个 hellworld vue是什么： ​ 一个mvvm框架库，容易，上手，简单高效灵活 ​ 2014年诞生 ​ 作者：尤雨溪 vue 官网： vue流行程度 github活跃 react比较 优点 门槛低 效率高 学习vue能干什么 怎么学习好学 入门快 学习Vue需要哪些基础 HTML的基础知识，写前端页面的结构代码完全没有问题。 CSS的基础知识，最好了解CSS3的知识。 Javascript的基础知识，对基本语法掌握。 node.js初级知识，只需要会npm的使用和项目初始化就可以了 课程安排 Vue基础 ​ vue 思想​ hello vue 应用​ 指令 （数据绑定，事件绑定）​ 条件渲染 列表渲染 Vue 组件 Vue全家桶 vue-cli 工具 调试方法 vue-router vuex axios element-ui 介绍学习路线核心知识点 和课程内容介绍模板语法 条件渲染 列表渲染 事件处理 生命周期 组件封装vue全家桶先在html浏览器环境下学习vue然后在node环境下写vue 前置环境ide nodejs 调试工具 二、Vue基础入门指令 数据绑定 事件绑定 三、组件生命周期 定义组件 组件传值 四、脚手架node npm axios 组件化开发 Element-ui 路由 vuex 五、公司框架]]></content>
