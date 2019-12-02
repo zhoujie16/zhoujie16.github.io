@@ -311,7 +311,7 @@ display: none !important;
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">60</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">59</span></a>
 
   </li>
 
@@ -376,189 +376,6 @@ display: none !important;
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zhoujie16.cn/2018/09/26/我的文章/koa中间件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="周杰">
-      <meta itemprop="description" content="没有高深的知识，没有进阶的技巧。只是，万丈高楼平地起，千里之行始于足下，千里长提溃于蚁穴。能把简单的做好就是不简单，你能走多远，不是在于你有多聪明，而是取决于你有多勤奋，共勉。">
-      <meta itemprop="image" content="http://pic1.zhoujie16.cn/20190725180925.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZJ_16">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/09/26/我的文章/koa中间件/" class="post-title-link" itemprop="url">koa中间件</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-26 00:39:46" itemprop="dateCreated datePublished" datetime="2018-09-26T00:39:46+08:00">2018-09-26</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-07-25 17:27:53" itemprop="dateModified" datetime="2019-07-25T17:27:53+08:00">2019-07-25</time>
-              </span>
-            
-          
-
-          
-
-          
-            
-            
-              
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2018/09/26/我的文章/koa中间件/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/09/26/我的文章/koa中间件/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="一、什么是-Koa-的中间件"><a href="#一、什么是-Koa-的中间件" class="headerlink" title="一、什么是 Koa 的中间件"></a>一、什么是 Koa 的中间件</h3><p>通俗的讲：中间件就是匹配路由之前或者匹配路由完成做的一系列的操作，我们就可以把它叫做中间件。</p>
-<p>在 express 中间件（Middleware）是一个函数，它可以访问请求对象（request object (req)）, 响应对象（response object (res)）, 和 web 应用中处理请求-响应循环流程中的中间件，一般被命名为 next 的变量。在 Koa 中中间件和 express 有点类似</p>
-<h5 id="中间件的功能包括："><a href="#中间件的功能包括：" class="headerlink" title="中间件的功能包括："></a>中间件的功能包括：</h5><p>执行任何代码。</p>
-<p>修改请求和响应对象。</p>
-<p>终结请求-响应循环。</p>
-<p>调用堆栈中的下一个中间件。</p>
-<p>如果我的 get、post 回调函数中，没有 next 参数，那么就配了。如果想往下匹配的话，那么需要写 next()</p>
-<h3 id="二、Koa-应用可使用如下几种中间件："><a href="#二、Koa-应用可使用如下几种中间件：" class="headerlink" title="二、Koa 应用可使用如下几种中间件："></a>二、Koa 应用可使用如下几种中间件：</h3><p>应用级中间件<br>路由级中间件<br>错误处理中间件<br>第三方中间件</p>
-<h4 id="1-应用级中间件"><a href="#1-应用级中间件" class="headerlink" title="1.应用级中间件"></a>1.应用级中间件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//引入 koa模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Koa=<span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">var</span> router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>)();  <span class="comment">/*引入是实例化路由** 推荐*/</span></span><br><span class="line"><span class="keyword">var</span> app=<span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Koa中间件</span></span><br><span class="line"><span class="comment">//匹配任何路由  ，如果不写next，这个路由被匹配到了就不会继续向下匹配</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> app.use(async (ctx)=&gt;&#123;</span></span><br><span class="line"><span class="comment">    ctx.body='这是一个中间件';</span></span><br><span class="line"><span class="comment"> &#125;)</span></span><br><span class="line"><span class="comment">* */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*匹配路由之前打印日期*/</span></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx,next)=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Date</span>());</span><br><span class="line">    <span class="keyword">await</span> next(); <span class="comment">/*当前路由匹配完成以后继续向下匹配*/</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/'</span>,<span class="keyword">async</span> (ctx)=&gt;&#123;</span><br><span class="line">    ctx.body=<span class="string">"首页"</span>;</span><br><span class="line">&#125;)</span><br><span class="line">router.get(<span class="string">'/news'</span>,<span class="keyword">async</span> (ctx)=&gt;&#123;</span><br><span class="line">    ctx.body=<span class="string">"新闻列表页面"</span>;</span><br><span class="line">&#125;)</span><br><span class="line">router.get(<span class="string">'/login'</span>,<span class="keyword">async</span> (ctx)=&gt;&#123;</span><br><span class="line">    ctx.body=<span class="string">"新闻列表页面"</span>;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(router.routes());   <span class="comment">/*启动路由*/</span></span><br><span class="line">app.use(router.allowedMethods());</span><br><span class="line">app.listen(<span class="number">3002</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-路由级中间件"><a href="#2-路由级中间件" class="headerlink" title="2.路由级中间件"></a>2.路由级中间件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//引入 koa模块</span></span><br><span class="line"><span class="keyword">var</span> Koa=<span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">var</span> router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>)();  <span class="comment">/*引入是实例化路由** 推荐*/</span></span><br><span class="line"><span class="keyword">var</span> app=<span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Koa中间件</span></span><br><span class="line"><span class="comment">//匹配任何路由，如果不写next，这个路由被匹配到了就不会继续向下匹配</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/'</span>,<span class="keyword">async</span> (ctx)=&gt;&#123;</span><br><span class="line">    ctx.body=<span class="string">"首页"</span>;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 匹配到news路由以后继续向下匹配路由</span></span><br><span class="line">router.get(<span class="string">'/news'</span>,<span class="keyword">async</span> (ctx,next)=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'这是一个新闻1'</span>);</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/news'</span>,<span class="keyword">async</span> (ctx)=&gt;&#123;</span><br><span class="line">    ctx.body=<span class="string">'这是一个新闻'</span>;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/login'</span>,<span class="keyword">async</span> (ctx)=&gt;&#123;</span><br><span class="line">    ctx.body=<span class="string">"新闻列表页面"</span>;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(router.routes());   <span class="comment">/*启动路由*/</span></span><br><span class="line">app.use(router.allowedMethods());</span><br><span class="line">app.listen(<span class="number">3002</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-错误处理中间件"><a href="#3-错误处理中间件" class="headerlink" title="3.错误处理中间件"></a>3.错误处理中间件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//引入 koa模块</span></span><br><span class="line"><span class="keyword">var</span> Koa=<span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">var</span> router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>)();  <span class="comment">/*引入是实例化路由** 推荐*/</span></span><br><span class="line"><span class="keyword">var</span> app=<span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Koa中间件</span></span><br><span class="line"><span class="comment">//匹配任何路由  ，如果不写next，这个路由被匹配到了就不会继续向下匹配</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//www.域名.com/news</span></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx,next)=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'这是一个中间件01'</span>);</span><br><span class="line">    next();</span><br><span class="line">    <span class="keyword">if</span>(ctx.status==<span class="number">404</span>)&#123;   <span class="comment">/*如果页面找不到*/</span></span><br><span class="line">        ctx.status = <span class="number">404</span>;</span><br><span class="line">        ctx.body=<span class="string">"这是一个 404 页面"</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(ctx.url);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/'</span>,<span class="keyword">async</span> (ctx)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">    ctx.body=<span class="string">"首页"</span>;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line">router.get(<span class="string">'/news'</span>,<span class="keyword">async</span> (ctx)=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'这是新闻2'</span>);</span><br><span class="line">    ctx.body=<span class="string">'这是一个新闻'</span>;</span><br><span class="line">&#125;)</span><br><span class="line">router.get(<span class="string">'/login'</span>,<span class="keyword">async</span> (ctx)=&gt;&#123;</span><br><span class="line">    ctx.body=<span class="string">"新闻列表页面"</span>;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(router.routes());   <span class="comment">/*启动路由*/</span></span><br><span class="line">app.use(router.allowedMethods());</span><br><span class="line">app.listen(<span class="number">3002</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-中间件执行流程：洋葱圈"><a href="#4-中间件执行流程：洋葱圈" class="headerlink" title="4.中间件执行流程：洋葱圈"></a>4.中间件执行流程：洋葱圈</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//引入 koa模块</span><br><span class="line"></span><br><span class="line">var Koa=require(&apos;koa&apos;);</span><br><span class="line">var router = require(&apos;koa-router&apos;)();  /*引入是实例化路由** 推荐*/</span><br><span class="line">var app=new Koa();</span><br><span class="line"></span><br><span class="line">//Koa中间件</span><br><span class="line"></span><br><span class="line">//匹配任何路由  ，如果不写next，这个路由被匹配到了就不会继续向下匹配</span><br><span class="line"></span><br><span class="line">//www.域名.com/news</span><br><span class="line">app.use(async (ctx,next)=&gt;&#123;</span><br><span class="line">    console.log(&apos;1、这是第一个中间件01&apos;);</span><br><span class="line">    await next();</span><br><span class="line"></span><br><span class="line">    console.log(&apos;5、匹配路由完成以后又会返回来执行中间件&apos;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx,next)=&gt;&#123;</span><br><span class="line">    console.log(&apos;2、这是第二个中间件02&apos;);</span><br><span class="line">    await next();</span><br><span class="line"></span><br><span class="line">    console.log(&apos;4、匹配路由完成以后又会返回来执行中间件&apos;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.get(&apos;/&apos;,async (ctx)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">    ctx.body=&quot;首页&quot;;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line">router.get(&apos;/news&apos;,async (ctx)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">    console.log(&apos;3、匹配到了news这个路由&apos;);</span><br><span class="line">    ctx.body=&apos;这是一个新闻&apos;;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(router.routes());   /*启动路由*/</span><br><span class="line">app.use(router.allowedMethods());</span><br><span class="line">app.listen(3002);</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
     
       
 
@@ -2296,7 +2113,7 @@ display: none !important;
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">59</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

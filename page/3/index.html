@@ -311,7 +311,7 @@ display: none !important;
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">60</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">59</span></a>
 
   </li>
 
@@ -376,183 +376,6 @@ display: none !important;
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zhoujie16.cn/2019/04/09/我的文章/Mongodb备份脚本centos/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="周杰">
-      <meta itemprop="description" content="没有高深的知识，没有进阶的技巧。只是，万丈高楼平地起，千里之行始于足下，千里长提溃于蚁穴。能把简单的做好就是不简单，你能走多远，不是在于你有多聪明，而是取决于你有多勤奋，共勉。">
-      <meta itemprop="image" content="http://pic1.zhoujie16.cn/20190725180925.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZJ_16">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/09/我的文章/Mongodb备份脚本centos/" class="post-title-link" itemprop="url">Mongodb备份脚本centos</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-09 14:41:52" itemprop="dateCreated datePublished" datetime="2019-04-09T14:41:52+08:00">2019-04-09</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-07-25 17:27:53" itemprop="dateModified" datetime="2019-07-25T17:27:53+08:00">2019-07-25</time>
-              </span>
-            
-          
-
-          
-
-          
-            
-            
-              
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/04/09/我的文章/Mongodb备份脚本centos/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/09/我的文章/Mongodb备份脚本centos/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="创建Mongodb数据库备份目录"><a href="#创建Mongodb数据库备份目录" class="headerlink" title="创建Mongodb数据库备份目录"></a>创建Mongodb数据库备份目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/backup/mongod_bak/mongod_bak_now</span><br><span class="line"></span><br><span class="line">mkdir -p /home/backup/mongod_bak/mongod_bak_list</span><br></pre></td></tr></table></figure>
-
-<h4 id="新建Mongodb数据库备份脚本"><a href="#新建Mongodb数据库备份脚本" class="headerlink" title="新建Mongodb数据库备份脚本"></a>新建Mongodb数据库备份脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">DUMP=/www/server/mongodb/bin/mongodump #mongodump备份文件执行路径</span><br><span class="line"></span><br><span class="line">OUT_DIR=/home/backup/mongod_bak/mongod_bak_now #临时备份目录</span><br><span class="line"></span><br><span class="line">TAR_DIR=/home/backup/mongod_bak/mongod_bak_list #备份存放路径</span><br><span class="line"></span><br><span class="line">DATE=`date +%Y_%m_%d` #获取当前系统时间</span><br><span class="line"></span><br><span class="line">DB_USER=username #数据库账号</span><br><span class="line"></span><br><span class="line">DB_PASS=password #数据库密码</span><br><span class="line"></span><br><span class="line">DAYS=7 #DAYS=7代表删除7天前的备份，即只保留最近7天的备份</span><br><span class="line"></span><br><span class="line">TAR_BAK=&quot;mongod_bak_$DATE.tar.gz&quot; #最终保存的数据库备份文件名</span><br><span class="line"></span><br><span class="line">cd $OUT_DIR</span><br><span class="line"></span><br><span class="line">rm -rf $OUT_DIR/*</span><br><span class="line"></span><br><span class="line">mkdir -p $OUT_DIR/$DATE</span><br><span class="line"></span><br><span class="line">$DUMP -u $DB_USER -p $DB_PASS -o $OUT_DIR/$DATE #备份全部数据库</span><br><span class="line"></span><br><span class="line">tar -zcvf $TAR_DIR/$TAR_BAK $OUT_DIR/$DATE #压缩为.tar.gz格式</span><br><span class="line"></span><br><span class="line">find $TAR_DIR/ -mtime +$DAYS -delete #删除7天前的备份文件</span><br></pre></td></tr></table></figure>
-
-<h4 id="Mongodb数据库恢复"><a href="#Mongodb数据库恢复" class="headerlink" title="Mongodb数据库恢复"></a>Mongodb数据库恢复</h4><p>–drop参数：恢复数据之前删除原来的数据，避免数据重复</p>
-<p>–noIndexRestore参数：恢复数据时不创建索引</p>
-<p>–dir参数：数据库备份目录</p>
-<p>-d参数：后面跟要恢复的数据库名称</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#恢复全部数据库：</span><br><span class="line">mongorestore -u $DB_USER -p $DB_PASS --authenticationDatabase &quot;admin&quot; --noIndexRestore --dir /home/backup/mongod_bak/mongod_bak_now/2019_04_09/</span><br><span class="line"></span><br><span class="line">#恢复单个数据库</span><br><span class="line">mongorestore -u $DB_USER -p $DB_PASS --authenticationDatabase &quot;admin&quot; --noIndexRestore -d dbname --dir /home/backup/mongod_bak/mongod_bak_now/2019_04_09/</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
     
       
 
@@ -2460,6 +2283,240 @@ display: none !important;
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhoujie16.cn/2019/03/20/我的文章/使用nvm管理不同版本的node与npm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="周杰">
+      <meta itemprop="description" content="没有高深的知识，没有进阶的技巧。只是，万丈高楼平地起，千里之行始于足下，千里长提溃于蚁穴。能把简单的做好就是不简单，你能走多远，不是在于你有多聪明，而是取决于你有多勤奋，共勉。">
+      <meta itemprop="image" content="http://pic1.zhoujie16.cn/20190725180925.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZJ_16">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/20/我的文章/使用nvm管理不同版本的node与npm/" class="post-title-link" itemprop="url">使用nvm管理不同版本的 node与npm</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-20 12:45:30" itemprop="dateCreated datePublished" datetime="2019-03-20T12:45:30+08:00">2019-03-20</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-10-23 20:43:12" itemprop="dateModified" datetime="2019-10-23T20:43:12+08:00">2019-10-23</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/20/我的文章/使用nvm管理不同版本的node与npm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/20/我的文章/使用nvm管理不同版本的node与npm/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在我们的日常开发中经常会遇到这种情况：手上有好几个项目，每个项目的需求不同，进而不同项目必须依赖不同版的 NodeJS 运行环境。如果没有一个合适的工具，这个问题将非常棘手。</p>
+<p><a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">nvm</a> 应运而生，nvm 是 Mac 下的 node 管理工具，有点类似管理 Ruby 的 rvm，如果需要管理 Windows 下的 node，官方推荐使用 <a href="https://github.com/hakobera/nvmw" target="_blank" rel="noopener">nvmw</a> 或 <a href="https://github.com/coreybutler/nvm-windows" target="_blank" rel="noopener">nvm-windows</a>。不过，nvm-windows 并不是 nvm 的简单移植，他们也没有任何关系。但下面介绍的所有命令，都可以在 nvm-windows 中运行。</p>
+<hr>
+<h2 id="nvm-与-n-的区别"><a href="#nvm-与-n-的区别" class="headerlink" title="nvm 与 n 的区别"></a>nvm 与 n 的区别</h2><p>node 版本管理工具还有一个是 TJ大神的 <a href="https://github.com/tj/n" target="_blank" rel="noopener">n</a> 命令，n 命令是作为一个 node 的模块而存在，而 nvm 是一个独立于 node/npm 的外部 shell 脚本，因此 n 命令相比 nvm 更加局限。</p>
+<p>由于 npm 安装的模块路径均为 <strong>/usr/local/lib/node_modules</strong>，当使用 n 切换不同的 node 版本时，实际上会共用全局的 node/npm 目录。 因此不能很好的满足『按不同 node 版本使用不同全局 node 模块』的需求。</p>
+<hr>
+<h2 id="卸载全局安装的-node-npm"><a href="#卸载全局安装的-node-npm" class="headerlink" title="卸载全局安装的 node/npm"></a>卸载全局安装的 node/npm</h2><h4 id="如果不是通过brew安装的"><a href="#如果不是通过brew安装的" class="headerlink" title="如果不是通过brew安装的"></a>如果不是通过brew安装的</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lsbom -f -l -s -pf /var/db/receipts/org.nodejs.pkg.bom \| <span class="keyword">while</span> <span class="built_in">read</span> i; <span class="keyword">do</span> sudo rm /usr/<span class="built_in">local</span>/<span class="variable">$&#123;i&#125;</span><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">sudo rm -rf /usr/<span class="built_in">local</span>/lib/node \</span><br><span class="line"></span><br><span class="line">    /usr/<span class="built_in">local</span>/lib/node_modules \</span><br><span class="line"></span><br><span class="line">    /var/db/receipts/org.nodejs.*</span><br></pre></td></tr></table></figure>
+
+<h4 id="如果是通过官方网站安装的执行下面命令"><a href="#如果是通过官方网站安装的执行下面命令" class="headerlink" title="如果是通过官方网站安装的执行下面命令"></a>如果是通过<a href="https://nodejs.org/en/" target="_blank" rel="noopener">官方网站</a>安装的执行下面命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /usr/<span class="built_in">local</span>/&#123;bin/&#123;node,npm&#125;,lib/node_modules/npm,lib/node,share/man/*/node.*&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Windows-安装"><a href="#Windows-安装" class="headerlink" title="Windows 安装"></a>Windows 安装</h2><p>首先最重要的是：一定要卸载已安装的 NodeJS，否则会发生冲突。然后下载 <a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" rel="noopener">nvm-windows</a> 最新安装包，直接安装即可。</p>
+<hr>
+<h2 id="OS-X-Linux-安装"><a href="#OS-X-Linux-安装" class="headerlink" title="OS X/Linux 安装"></a>OS X/Linux 安装</h2><p>与 Windows 不同，我们并不一定要先卸载原有的 NodeJS。当然我们推荐还是先卸载掉比较好。另外，你还需要 C++ 编译器，Linux 发行版一般不用担心，像 Ubuntu 都可以直接用 <strong>build-essential</strong> 套件，OS X 的话，可以用 <strong>X-Code</strong> 的命令行工具。运行这个命令即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+
+<p>在 Linux 中：（如果是 Debian 发行版）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential</span><br></pre></td></tr></table></figure>
+
+<p>然后我们可以使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash</span><br></pre></td></tr></table></figure>
+
+<p>从远程下载 <strong>install.sh</strong> 脚本并执行。注意这个版本年数字 <strong>v0.33.0</strong> 会随着项目开发而变化。随时通过<a href="https://github.com/creationix/nvm#install-script" target="_blank" rel="noopener">官方最新安装命令</a>来检查最新安装版本是有好处的。</p>
+<h3 id="配置mac环境变量"><a href="#配置mac环境变量" class="headerlink" title="配置mac环境变量"></a>配置mac环境变量</h3><ol>
+<li><p>启动终端Terminal</p>
+</li>
+<li><p>进入当前用户的home目录</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入cd ~</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>创建.bash_profile</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入touch .bash_profile</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>编辑.bash_profile文件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入open -e .bash_profile</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><p>保存文件，关闭.bash_profile</p>
+</li>
+<li><p>更新刚配置的环境变量</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入source .bash_profile</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="在项目中使用不同版本的-Node"><a href="#在项目中使用不同版本的-Node" class="headerlink" title="在项目中使用不同版本的 Node"></a>在项目中使用不同版本的 Node</h2><p>我们可以通过创建项目目录中的 <strong>.nvmrc</strong> 文件来指定要使用的 Node 版本。之后在项目目录中执行 <strong>nvm use</strong> 即可。<strong>.nvmrc</strong> 文件内容只需要遵守上文提到的语义化版本规则即可。另外还有个工具叫做 <a href="https://github.com/wbyoung/avn" target="_blank" rel="noopener">avn</a>，可以自动化这个过程。</p>
+<hr>
+<h2 id="在多环境中，npm该如何使用呢？"><a href="#在多环境中，npm该如何使用呢？" class="headerlink" title="在多环境中，npm该如何使用呢？"></a>在多环境中，npm该如何使用呢？</h2><p>每个版本的 Node 都会自带一个不同版本的 npm，可以用 <strong>npm -v</strong> 来查看 npm 的版本。全局安装的 npm 包并不会在不同的 Node 环境中共享，因为这会引起兼容问题。它们被放在了不同版本的目录下，例如 <strong>~/.nvm/versions/node/<version>/lib/node_modules</version></strong> 这样的目录。这刚好也省去我们在 Linux 中使用 <strong>sudo</strong> 的功夫了。因为这是用户的主文件夹，并不会引起权限问题。</p>
+<p>但问题来了，我们安装过的 npm 包，都要重新再装一次？幸运的是，我们有个办法来解决我们的问题，运行下面这个命令，可以从特定版本导入到我们将要安装的新版本 Node：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm install v5.0.0 --reinstall-packages-from=4.2</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">nvm install &lt;version&gt; ## 安装指定版本，可模糊安装，如：安装v4.4.0，既可nvm install v4.4.0，又可nvm install 4.4</span><br><span class="line"></span><br><span class="line">nvm uninstall &lt;version&gt; ## 删除已安装的指定版本，语法与install类似</span><br><span class="line"></span><br><span class="line">nvm use &lt;version&gt; ## 切换使用指定的版本node</span><br><span class="line"></span><br><span class="line">nvm which &lt;version&gt; ## 确认某个版本Node的路径</span><br><span class="line"></span><br><span class="line">nvm ls ## 列出所有安装的版本</span><br><span class="line"></span><br><span class="line">nvm ls-remote ## 列出所以远程服务器的版本（官方node version list）</span><br><span class="line"></span><br><span class="line">nvm current ## 显示当前的版本</span><br><span class="line"></span><br><span class="line">nvm alias &lt;name&gt; &lt;version&gt; ## 给不同的版本号添加别名</span><br><span class="line"></span><br><span class="line">nvm unalias &lt;name&gt; ## 删除已定义的别名</span><br><span class="line"></span><br><span class="line">nvm reinstall-packages &lt;version&gt; ## 在当前版本node环境下，重新全局安装指定版本号的npm包</span><br></pre></td></tr></table></figure>
+
+<p>快捷命令：</p>
+<ul>
+<li><strong>nvm install node</strong> 安装最新版 Node</li>
+<li><strong>nvm install iojs</strong> 安装最新版 iojs</li>
+<li><strong>nvm install unstable</strong> 安装最新不稳定版本的 Node</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2508,7 +2565,7 @@ display: none !important;
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">59</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
