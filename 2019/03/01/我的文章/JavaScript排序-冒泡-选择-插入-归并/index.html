@@ -112,11 +112,38 @@ display: none !important;
 <script>
   function blogLog() {
     if (window.location.hostname.indexOf('zhoujie16') !== -1) {
-      var url = 'https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog'
-      var href = window.location.href
-      $.post(url, {
-        href: decodeURIComponent(href)
-      })
+      var url = "https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog";
+      const key = "zhoujie_blog_uuid";
+      var uuid = localStorage.getItem(key);
+      if (!uuid) {
+        uuid = guid2();
+        localStorage.setItem(key, uuid);
+      }
+      const params = {
+        uuid,
+        page: window.location.href,
+        remark: ""
+      };
+      $.post(url, params);
+      function guid2() {
+        function S4() {
+          return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+        return (
+          S4() +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          S4() +
+          S4()
+        );
+      }
     }
   }
 
@@ -127,6 +154,7 @@ display: none !important;
     }, 2000)
   }
 </script>
+
 
   <meta name="description" content="不过说到排序，最容易想到的就是冒泡排序，选择排序，插入排序了。 冒泡排序 依次比较相邻的两个元素，如果后一个小于前一个，则交换，这样从头到尾一次，就将最大的放到了末尾。 从头到尾再来一次，由于每进行一轮，最后的都已经是最大的了，因此后一轮需要比较次数可以比上一次少一个。虽然你还是可以让他从头到尾来比较，但是后面的比较是没有意义的无用功，为了效率，你应该对代码进行优化。 图片演示如下  代码实现：">
 <meta property="og:type" content="article">

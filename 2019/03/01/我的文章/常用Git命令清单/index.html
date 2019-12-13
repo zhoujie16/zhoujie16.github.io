@@ -112,11 +112,38 @@ display: none !important;
 <script>
   function blogLog() {
     if (window.location.hostname.indexOf('zhoujie16') !== -1) {
-      var url = 'https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog'
-      var href = window.location.href
-      $.post(url, {
-        href: decodeURIComponent(href)
-      })
+      var url = "https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog";
+      const key = "zhoujie_blog_uuid";
+      var uuid = localStorage.getItem(key);
+      if (!uuid) {
+        uuid = guid2();
+        localStorage.setItem(key, uuid);
+      }
+      const params = {
+        uuid,
+        page: window.location.href,
+        remark: ""
+      };
+      $.post(url, params);
+      function guid2() {
+        function S4() {
+          return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+        return (
+          S4() +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          S4() +
+          S4()
+        );
+      }
     }
   }
 
@@ -127,6 +154,7 @@ display: none !important;
     }, 2000)
   }
 </script>
+
 
   <meta name="description" content="我每天使用 Git ，但是很多命令记不住。 一般来说，日常使用只要记住下图6个命令，就可以了。但是熟练使用，恐怕要记住60～100个命令。 下面是我整理的常用 Git 命令清单。几个专用名词的译名如下。  Workspace：工作区Index / Stage：暂存区Repository：仓库区（或本地仓库）Remote：远程仓库  一、新建代码库 123456# 在当前目录新建一个Git代码库$">
 <meta property="og:type" content="article">

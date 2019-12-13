@@ -112,11 +112,38 @@ display: none !important;
 <script>
   function blogLog() {
     if (window.location.hostname.indexOf('zhoujie16') !== -1) {
-      var url = 'https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog'
-      var href = window.location.href
-      $.post(url, {
-        href: decodeURIComponent(href)
-      })
+      var url = "https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog";
+      const key = "zhoujie_blog_uuid";
+      var uuid = localStorage.getItem(key);
+      if (!uuid) {
+        uuid = guid2();
+        localStorage.setItem(key, uuid);
+      }
+      const params = {
+        uuid,
+        page: window.location.href,
+        remark: ""
+      };
+      $.post(url, params);
+      function guid2() {
+        function S4() {
+          return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+        return (
+          S4() +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          S4() +
+          S4()
+        );
+      }
     }
   }
 
@@ -127,6 +154,7 @@ display: none !important;
     }, 2000)
   }
 </script>
+
 
   <meta name="description" content="定义：所谓“赌博式编程”，“撞大运编程”就是指程序员在敲代码的时候，不知道自己的代码是不是最终work，既不知其然也不知所以然，反正不管三七二七一先提交再说，这就如同赌博一般。与之相反的，就是通常的“最佳实践” 赌博式编程和最佳实践，究竟应该怎么做呢？我都亲身试过  赌博式编程中，虽然代码写得烂，但是CI/CD的频次高，并且自己态度积极耐心，很容易得到周围人的好评。因为大家遇到什么问题都指望着你。">
 <meta property="og:type" content="article">

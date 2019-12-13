@@ -112,11 +112,38 @@ display: none !important;
 <script>
   function blogLog() {
     if (window.location.hostname.indexOf('zhoujie16') !== -1) {
-      var url = 'https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog'
-      var href = window.location.href
-      $.post(url, {
-        href: decodeURIComponent(href)
-      })
+      var url = "https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog";
+      const key = "zhoujie_blog_uuid";
+      var uuid = localStorage.getItem(key);
+      if (!uuid) {
+        uuid = guid2();
+        localStorage.setItem(key, uuid);
+      }
+      const params = {
+        uuid,
+        page: window.location.href,
+        remark: ""
+      };
+      $.post(url, params);
+      function guid2() {
+        function S4() {
+          return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+        return (
+          S4() +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          S4() +
+          S4()
+        );
+      }
     }
   }
 
@@ -127,6 +154,7 @@ display: none !important;
     }, 2000)
   }
 </script>
+
 
   <meta name="description" content="一、什么是 Koa 的中间件通俗的讲：中间件就是匹配路由之前或者匹配路由完成做的一系列的操作，我们就可以把它叫做中间件。 在 express 中间件（Middleware）是一个函数，它可以访问请求对象（request object (req)）, 响应对象（response object (res)）, 和 web 应用中处理请求-响应循环流程中的中间件，一般被命名为 next 的变量。在 Ko">
 <meta property="og:type" content="article">

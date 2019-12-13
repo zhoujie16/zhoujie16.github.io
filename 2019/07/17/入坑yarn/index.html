@@ -112,11 +112,38 @@ display: none !important;
 <script>
   function blogLog() {
     if (window.location.hostname.indexOf('zhoujie16') !== -1) {
-      var url = 'https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog'
-      var href = window.location.href
-      $.post(url, {
-        href: decodeURIComponent(href)
-      })
+      var url = "https://s.zhoujie16.cn/mdapi/applog_zhoujie_blog";
+      const key = "zhoujie_blog_uuid";
+      var uuid = localStorage.getItem(key);
+      if (!uuid) {
+        uuid = guid2();
+        localStorage.setItem(key, uuid);
+      }
+      const params = {
+        uuid,
+        page: window.location.href,
+        remark: ""
+      };
+      $.post(url, params);
+      function guid2() {
+        function S4() {
+          return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+        return (
+          S4() +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          "-" +
+          S4() +
+          S4() +
+          S4()
+        );
+      }
     }
   }
 
@@ -127,6 +154,7 @@ display: none !important;
     }, 2000)
   }
 </script>
+
 
   <meta name="description" content="前言最近研究Taro，用npm安装taro环境那是一个巨慢啊，公司还有一个老的vue项目，npm安装依赖很难成功，有时安装成功了也运行报错，要反复删掉重装直到运行成功，今天运行项目就折腾了一上午，最终用yarn一次解决，那个蛋疼啊。 看taro文档也支持yarn安装，之前也听说过有yarn这个东西，yarn出现很久了但是从来没有用过，当时想学yarn有毛用，当今npm扫天下。现在yarn经常出现在">
 <meta property="og:type" content="article">
