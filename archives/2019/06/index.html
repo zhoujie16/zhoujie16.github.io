@@ -121,7 +121,7 @@ display: none !important;
       }
       const params = {
         uuid,
-        page: window.location.href,
+        page: decodeURIComponent(window.location.href),
         remark: ""
       };
       $.post(url, params);
