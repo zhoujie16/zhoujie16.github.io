@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>如何写出无法维护的代码 | 周小米的博客</title><meta name="author" content="周小米"><meta name="copyright" content="周小米"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如何写出无法维护的代码 这篇文章的原文在这里（mindprod.com&#x2F;jgloss&#x2F;unma… 看完我想说——  什么叫“创造力”，创造力就是——就算是要干一件烂事都能干得那么漂亮那么有创意的能力。   什么叫“抓狂”，抓狂就是——以一种沉着老练的不屈不挠的一本正经的精神一点一点把你推向崩溃的边缘。  另外，维护程序的朋友们，你们死定了！！  如果建筑师盖房子就像程序员写程序一样，那么，第一只到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何写出无法维护的代码">
+<meta property="og:url" content="http://example.com/2019/06/13/%E5%A8%B1%E4%B9%90/%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E6%97%A0%E6%B3%95%E7%BB%B4%E6%8A%A4%E7%9A%84%E4%BB%A3%E7%A0%81/index.html">
+<meta property="og:site_name" content="周小米的博客">
+<meta property="og:description" content="如何写出无法维护的代码 这篇文章的原文在这里（mindprod.com&#x2F;jgloss&#x2F;unma… 看完我想说——  什么叫“创造力”，创造力就是——就算是要干一件烂事都能干得那么漂亮那么有创意的能力。   什么叫“抓狂”，抓狂就是——以一种沉着老练的不屈不挠的一本正经的精神一点一点把你推向崩溃的边缘。  另外，维护程序的朋友们，你们死定了！！  如果建筑师盖房子就像程序员写程序一样，那么，第一只到">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2019-06-13T06:38:53.000Z">
+<meta property="article:modified_time" content="2021-02-09T09:47:06.797Z">
+<meta property="article:author" content="周小米">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2019/06/13/%E5%A8%B1%E4%B9%90/%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E6%97%A0%E6%B3%95%E7%BB%B4%E6%8A%A4%E7%9A%84%E4%BB%A3%E7%A0%81/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-09 17:47:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://gitee.com/zz16/upic/raw/master/2020/04/1586355398747.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-music"></i><span> 图库</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">周小米的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-music"></i><span> 图库</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">如何写出无法维护的代码</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-06-13T06:38:53.000Z" title="undefined 2019-06-13 14:38:53">2019-06-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A8%B1%E4%B9%90/">娱乐</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="如何写出无法维护的代码"><a href="#如何写出无法维护的代码" class="headerlink" title="如何写出无法维护的代码"></a>如何写出无法维护的代码</h1><p><img src="http://pic1.zhoujie16.cn/006tNc79ly1g3zkugrw02j30go0ayaa8.jpg"></p>
+<p>这篇文章的原文在这里（<a href="https://link.juejin.im/?target=http://mindprod.com/jgloss/unmain.html%EF%BC%89">mindprod.com/jgloss/unma…</a></p>
+<p>看完我想说——</p>
+<blockquote>
+<p><strong>什么叫“创造力”，创造力就是——就算是要干一件烂事都能干得那么漂亮那么有创意的能力。</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>什么叫“抓狂”，抓狂就是——以一种沉着老练的不屈不挠的一本正经的精神一点一点把你推向崩溃的边缘。</strong></p>
+</blockquote>
+<p><strong>另外，维护程序的朋友们，你们死定了！！</strong></p>
+<blockquote>
+<p>如果建筑师盖房子就像程序员写程序一样，那么，第一只到来的啄木鸟就能毁掉我们的文明</p>
+</blockquote>
+<h2 id="程序命名"><a href="#程序命名" class="headerlink" title="程序命名"></a>程序命名</h2><ol>
+<li><strong>容易输入的名字</strong>。比如：Fred，asdf</li>
+<li><strong>单字母的变量名</strong>。比如：a,b,c, x,y,z（如果不够用，可以考虑a1,a2,a3,a4,….）</li>
+<li><strong>有创意地拼写错误</strong>。比如：SetPintleOpening， SetPintalClosing。这样可以让人很难搜索代码。</li>
+<li><strong>抽象</strong>。比如：ProcessData, DoIt, GetData… 抽象到就跟什么都没说一样。</li>
+<li><strong>缩写</strong>。比如：WTF，RTFSC …… （使用拼音缩写也同样给力，比如： BT，TMD，TJJTDS）</li>
+<li><strong>随机大写字母</strong>。比如：gEtnuMbER..</li>
+<li><strong>重用命名</strong>。在内嵌的语句块中使用相同的变量名有奇效。</li>
+<li><strong>使用重音字母</strong>。比如：int ínt（第二个 ínt不是int）</li>
+<li><strong>使用下划线</strong>。比如：_, __, ___。</li>
+<li><strong>使用不同的语言</strong>。比如混用英语，德语，或是中文拼音。</li>
+<li><strong>使用字符命名</strong>。比如：slash, asterix, comma…</li>
+<li><strong>使用无关的单词</strong>。比如：god, superman, iloveu….</li>
+<li><strong>混淆l和1</strong>。字母l和数字1有时候是看不出来的。</li>
+</ol>
+<h2 id="伪装欺诈"><a href="#伪装欺诈" class="headerlink" title="伪装欺诈"></a>伪装欺诈</h2><ol>
+<li><strong>把注释和代码交织在一起。</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">for(j&#x3D;0; j&lt;array_len; j+ &#x3D;8)</span><br><span class="line">&#123;</span><br><span class="line">    total +&#x3D; array[j+0 ];</span><br><span class="line">    total +&#x3D; array[j+1 ];</span><br><span class="line">    total +&#x3D; array[j+2 ]; &#x2F;* Main body of</span><br><span class="line">    total +&#x3D; array[j+3]; * loop is unrolled</span><br><span class="line">    total +&#x3D; array[j+4]; * for greater speed.</span><br><span class="line">    total +&#x3D; array[j+5]; *&#x2F;</span><br><span class="line">    total +&#x3D; array[j+6 ];</span><br><span class="line">    total +&#x3D; array[j+7 ];</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>代码和显示不一致</strong>。比如，你的界面显示叫postal code，但是代码里确叫 zipcode.</li>
+<li><strong>隐藏全局变量</strong>。把使用全局变量以函数参数的方式传递给函数，这样可以让人觉得那个变量不是全局变量。</li>
+<li><strong>使用相似的变量名</strong>。如：单词相似，swimmer 和 swimner，字母相似：ilI1| 或 oO08。parselnt 和 parseInt， D0Calc 和 DOCalc。还有这一组：xy_Z, xy__z, _xy_z, _xyz, XY_Z, xY_z, Xy_z。</li>
+<li><strong>重载函数</strong>。使用相同的函数名，但是其功能和具体实现完全没有关系。</li>
+<li><strong>操作符重载</strong>。重载操作符可以让你的代码变得诡异，感谢CCTV，感谢C++。这个东西是可以把混乱代码提高到一种艺术的形式。比如：重载一个类的 ! 操作符，但实际功能并不是取反，让其返回一个整数。于是，如果你使用 ! ! 操作符，那么，有意思的事就发生了—— 先是调用类的重载 ! 操作符，然后把其返回的整数给 ! 成了 布尔变量，如果是 !!! 呢？呵呵。</li>
+</ol>
+<h2 id="文档和注释"><a href="#文档和注释" class="headerlink" title="文档和注释"></a>文档和注释</h2><ol>
+<li><strong>在注释中撒谎</strong>。你不用真的去撒谎，只需在改代码的时候不要更新注释就可以了。</li>
+<li><strong>注释里面写废话</strong>。比如：/* add 1 to i */</li>
+<li><strong>只注释是什么，而不是为什么</strong>。</li>
+<li><strong>不要注释秘密</strong>。如果你开发一个航班系统，请你一定要保证每有一个新的航班被加入，就得要修改25个以上的位置的程序。千万别把这个事写在文档中。</li>
+<li><strong>注重细节</strong>。当你设计一个很复杂的算法的时候，你一定要把所有的详细细设计都写下来，没有100页不能罢休，段落要有5级以上，段落编号要有500个以上，例如：1.2.4.6.3.13 – Display all impacts for activity where selected mitigations can apply (short pseudocode omitted). 这样，当你写代码的时候，你就可以让你的代码和文档一致，如：Act1_2_4_6_3_13() 千万不要注释度衡单位。比如时间用的是秒还是毫秒，尺寸用的是像素还是英寸，大小是MB还是KB。等等。另外，在你的代码里，你可以混用不同的度衡单位，但也不要注释。</li>
+<li><strong>Gotchas。陷阱</strong>，千万不要注释代码中的陷阱。</li>
+<li><strong>在注释和文档中发泄不满</strong>。</li>
+</ol>
+<h2 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h2><ol>
+<li><strong>Java Casts</strong>。Java的类型转型是天赐之物。每一次当你从Collection里取到一个object的时候，你都需要把其转回原来的类型。因些，这些转型操作会出现在N多的地方。如果你改变了类型，那么你不一定能改变所有的地方。而编译器可能能检查到，也可能检查不到。</li>
+<li><strong>利用Java的冗余</strong>。比如：Bubblegum b = new Bubblegom(); 和 swimmer = swimner + 1; 注意变量间的细微差别。</li>
+<li><strong>从不验证</strong>。从不验证输入的数据，从不验证函数的返回值。这样做可以向大家展示你是多么的信任公司的设备和其它程序员</li>
+<li><strong>不要封装</strong>。调用者需要知道被调用的所有的细节。</li>
+<li><strong>克隆和拷贝</strong>。为了效率，你要学会使用copy + paste。你几乎都不用理解别人的代码，你就可以高效地编程了。</li>
+<li><strong>巨大的listener</strong>。写一个listener，然后让你的所有的button类都使用这个listener，这样你可以在这个listener中整出一大堆if…else…语句，相当的刺激。</li>
+<li><strong>使用三维数组</strong>。如果你觉得三维还不足够，你可以试试四维。</li>
+<li><strong>混用</strong>。同时使用类的get/set方法和直接访问那个public变量。这样做的好处是可以极大的挫败维护人员。</li>
+<li><strong>包装，包装，包装</strong>。把你所有的API都包装上6到8遍，包装深度多达4层以上。然后包装出相似的功能。</li>
+<li><strong>没有秘密</strong>。把所有的成员都声明成public的。这样，你以后就很难限制其被人使用，而且这样可以和别的代码造成更多的耦合度，可以让你的代码存活得更久。</li>
+<li><strong>排列和阻碍</strong>。把drawRectangle(height, width) 改成 drawRectangle(width, height)，等release了几个版本后，再把其改回去。这样维护程序的程序员们很快就不明白哪一个是对的。</li>
+<li><strong>把变量改在名字上</strong>。例如，把setAlignment(int alignment)改成，setLeftAlignment, setRightAlignment, setCenterAlignment。</li>
+<li><strong>Packratting。保留你所有的没有使用的和陈旧的变量，方法和代码</strong>。</li>
+<li><strong>That’s Final。Final你所有的子结点的类</strong>，这样，当你做完这个项目后，没有人可以通过继承来扩展你的类。java.lang.String不也是这样吗？</li>
+<li><strong>避免使用layout</strong>。这样就使得我们只能使用绝对坐标。如果你的老大强制你使用layout，你可以考虑使用GridBagLayout，然后把grid坐标hard code.</li>
+<li><strong>环境变量</strong>。如果你的代码需要使用环境变量。那么，你应该把你的类的成员的初始化使用环境变量，而不是构造函数。</li>
+<li><strong>使用全局变量</strong>。1）把全局变量的初始化放在不同的函数中，就算这个函数和这个变量没有任何关系，这样能够让我们的维护人员就像做侦探工作一样。2）使用全局变量可以让你的函数的参数变得少一些。</li>
+<li><strong>配置文件</strong>。配置文件主要用于一些参数的初始化。在编程中，我们可以让配置文件中的参数名和实际程序中的名字不一样。 膨胀你的类。让你的类尽可能地拥有各种臃肿和晦涩的方法。比如，你的类只实现一种可能性，但是你要提供所有可能性的方法。不要定义其它的类，把所有的功能都放在一个类中。</li>
+<li><strong>使用子类</strong>。面向对象是写出无法维护代码的天赐之物。如果你有一个类有十个成为（变量和方法）你可以考虑写10个层次的继承，然后把这十个属性分别放在这十个层次中。如果可能的话，把这十个类分别放在十个不同的文件中。</li>
+<li><strong>混乱你的代码</strong> 使用XML。XML的强大是无人能及的。使用XML你可以把本来只要10行的代码变成100行。而且，还要逼着别人也有XML。（参看，信XML得永生，信XML得自信）</li>
+<li><strong>分解条件表达式</strong>。如：把 a==100分解成，a&gt;99 &amp;&amp; a&lt;101</li>
+<li><strong>学会利用分号</strong>。如：if ( a );else;{ int d; d = c;}</li>
+<li><strong>间接转型</strong>。如：把double转string，写成new Double(d).toString() 而不是 Double.toString(d)</li>
+<li><strong>大量使用嵌套</strong>。一个NB的程序员可以在一行代码上使用超过10层的小括号（），或是在一个函数里使用超过20层的语句嵌套{}，把嵌套的if else 转成 [? :] 也是一件很NB的事。</li>
+<li><strong>长代码行</strong>。一行的代码越长越好。这样别人阅读时就需要来来回回的</li>
+<li><strong>不要过早的return</strong>。不要使用break，这样，你就需要至少5层以上的if-else来处理错误。</li>
+<li>**不要使用{}。不要在if else使用{}**，尤其是在你重量地使用if-else嵌套时，你甚至可以在其中乱缩进代码，这样一来，就算是最有经验的程序员也会踩上陷阱。</li>
+<li><strong>琐碎的封装</strong>。比较封装一个bool类，类里面什么都做，就是一个bool.</li>
+<li><strong>循环</strong>。千万不可用for(int i=0; i&lt;n; i++)使用while代替for，交换n和i，把&lt;改成&lt;=，使用 i–调整步伐 。</li>
+</ol>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
+<li><strong>从不测试</strong>。千万不要测试任何的出错处理，从来也不检测系统调用的返回值。</li>
+<li><strong>永远不做性能测试</strong>。如果不够快就告诉用户换一个更快的机器。如果你一做测试，那么就可能会要改你的算法，甚至重设计，重新架构。</li>
+<li><strong>不要写测试案例</strong>。不要做什么代码覆盖率测试，自动化测试。</li>
+<li><strong>测试是懦夫行为</strong>。一个勇敢的程序员是根本不需要这一步的。太多的程序太害怕他们的老板，害怕失去工作，害怕用户抱怨，甚至被起诉。这种担心害怕直接影响了生产力。如果你对你的代码有强大的信心，那还要什么测试呢？真正的程序员是不需要测试自己的代码的。</li>
+</ol>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><ol>
+<li><strong>你的老板什么都知道</strong>。无论你的老板有多SB，你都要严格地遵照他的旨意办事，这样一来，你会学到更多的知识以及如何写出更加无法维护的代码。</li>
+<li><strong>颠覆Help Desk</strong>。你要确保你那满是bug的程序永远不要被维护团队知道。当用户打电话和写邮件给你的时候，你就不要理会，就算要理会，让用户重做系统或是告诉用户其帐号有问题，是标准的回答。</li>
+<li><strong>闭嘴</strong>。对于一些像y2k这样的大bug，你要学会守口如瓶，不要告诉任何人，包括你的亲人好友以及公司的同事和管理层，这样当到那一天的时候，你就可以用这个bug挣钱了。</li>
+<li><strong>忽悠</strong>。你会学会忽悠，就算你的代码写得很烂，你也要为其挂上GoF设计模式的标签，就算你的项目做得再烂，你也要为其挂上敏捷的标签，让整个团队和公司，甚至整个业界都开始躁动，这样才能真正为难维护的代码铺平道路。</li>
+</ol>
+<p>这个文档中还有很多很多，实在是太TMD强大了，大家自己去看看吧。有精力有能力的朋友不妨把其翻译成中文。</p>
+<p>总之，我们的口号是—— <strong>Write Everywhere, Read Nowhere</strong></p>
+<p><img src="http://pic1.zhoujie16.cn/006tNc79ly1g3zkuhc0p8j307p052jr9.jpg"></p>
+<p>（全文完）</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/06/15/Flutter/%E8%AE%A4%E8%AF%86%E4%B8%80%E4%B8%8BFlutter/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">认识一下Flutter</div></div></a></div><div class="next-post pull-right"><a href="/2019/05/16/%E6%9C%8D%E5%8A%A1%E7%AB%AF/Docker%E5%AE%89%E8%A3%85MongoDB/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Docker安装MongoDB</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://gitee.com/zz16/upic/raw/master/2020/04/1586355398747.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">周小米</div><div class="author-info__description">没有高深的知识，没有进阶的技巧。只是，万丈高楼平地起，千里之行始于足下，千里长提溃于蚁穴。能把简单的做好就是不简单，你能走多远，不是在于你有多聪明，而是取决于你有多勤奋，共勉。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">暂无公告</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E6%97%A0%E6%B3%95%E7%BB%B4%E6%8A%A4%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">如何写出无法维护的代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E5%91%BD%E5%90%8D"><span class="toc-number">1.1.</span> <span class="toc-text">程序命名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E8%A3%85%E6%AC%BA%E8%AF%88"><span class="toc-number">1.2.</span> <span class="toc-text">伪装欺诈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E5%92%8C%E6%B3%A8%E9%87%8A"><span class="toc-number">1.3.</span> <span class="toc-text">文档和注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.4.</span> <span class="toc-text">程序设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">1.5.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">1.6.</span> <span class="toc-text">其它</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/09/git%E6%8A%80%E5%B7%A7/git%20cherry-pick%20%E6%95%99%E7%A8%8B/" title="git cherry-pick 教程"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git cherry-pick 教程"/></a><div class="content"><a class="title" href="/2021/02/09/git%E6%8A%80%E5%B7%A7/git%20cherry-pick%20%E6%95%99%E7%A8%8B/" title="git cherry-pick 教程">git cherry-pick 教程</a><time datetime="2021-02-09T15:00:22.000Z" title="发表于 2021-02-09 23:00:22">2021-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/09/a/" title="a"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="a"/></a><div class="content"><a class="title" href="/2021/02/09/a/" title="a">a</a><time datetime="2021-02-09T12:08:01.000Z" title="发表于 2021-02-09 20:08:01">2021-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E4%B8%80%E9%94%AE%E4%BC%98%E5%8C%96WindowsServer%E4%B8%BA%E5%AE%B6%E7%94%A8%E7%B3%BB%E7%BB%9F/" title="一键优化Windows Server为家用系统"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一键优化Windows Server为家用系统"/></a><div class="content"><a class="title" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E4%B8%80%E9%94%AE%E4%BC%98%E5%8C%96WindowsServer%E4%B8%BA%E5%AE%B6%E7%94%A8%E7%B3%BB%E7%BB%9F/" title="一键优化Windows Server为家用系统">一键优化Windows Server为家用系统</a><time datetime="2021-02-08T07:30:10.000Z" title="发表于 2021-02-08 15:30:10">2021-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E7%A6%BB%E7%BA%BFKMS%E6%BF%80%E6%B4%BB%E5%B7%A5%E5%85%B7%20HEU%20KMS%20Activator/" title="离线KMS激活工具 HEU KMS Activator"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="离线KMS激活工具 HEU KMS Activator"/></a><div class="content"><a class="title" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E7%A6%BB%E7%BA%BFKMS%E6%BF%80%E6%B4%BB%E5%B7%A5%E5%85%B7%20HEU%20KMS%20Activator/" title="离线KMS激活工具 HEU KMS Activator">离线KMS激活工具 HEU KMS Activator</a><time datetime="2021-02-08T06:45:30.000Z" title="发表于 2021-02-08 14:45:30">2021-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/%E5%89%8D%E7%AB%AF/JS%E4%B8%AD%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6/" title="JS中不常用但强大的操作符"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JS中不常用但强大的操作符"/></a><div class="content"><a class="title" href="/2021/02/08/%E5%89%8D%E7%AB%AF/JS%E4%B8%AD%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6/" title="JS中不常用但强大的操作符">JS中不常用但强大的操作符</a><time datetime="2021-02-08T06:17:16.000Z" title="发表于 2021-02-08 14:17:16">2021-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2016 - 2021 By 周小米</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">皖ICP备19002262号 </a> </div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadWaline () {
+  function initWaline () {
+    let initData = {
+      el: '#waline-wrap',
+      serverURL: 'http://waline.zhoujie16.cn',
+      avatar: 'monsterid',
+      path: location.pathname,
+      emojiCDN: '',
+      emojiMaps: {},
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const waline = new Waline(initData)
+  }
+
+  if (typeof Waline === 'function') initWaline() 
+  else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(initWaline)
+}
+
+if ('Waline' === 'Waline' || !false) {
+  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://oss.zhoujie16.cn/cdn/hexo-blog/common.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

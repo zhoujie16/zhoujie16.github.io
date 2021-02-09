@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>入坑yarn | 周小米的博客</title><meta name="author" content="周小米"><meta name="copyright" content="周小米"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言最近研究Taro，用npm安装taro环境那是一个巨慢啊，公司还有一个老的vue项目，npm安装依赖很难成功，有时安装成功了也运行报错，要反复删掉重装直到运行成功，今天运行项目就折腾了一上午，最终用yarn一次解决，那个蛋疼啊。 看taro文档也支持yarn安装，之前也听说过有yarn这个东西，yarn出现很久了但是从来没有用过，当时想学yarn有毛用，当今npm扫天下。现在yarn经常出现在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="入坑yarn">
+<meta property="og:url" content="http://example.com/2019/07/17/%E5%89%8D%E7%AB%AF/%E5%85%A5%E5%9D%91yarn/index.html">
+<meta property="og:site_name" content="周小米的博客">
+<meta property="og:description" content="前言最近研究Taro，用npm安装taro环境那是一个巨慢啊，公司还有一个老的vue项目，npm安装依赖很难成功，有时安装成功了也运行报错，要反复删掉重装直到运行成功，今天运行项目就折腾了一上午，最终用yarn一次解决，那个蛋疼啊。 看taro文档也支持yarn安装，之前也听说过有yarn这个东西，yarn出现很久了但是从来没有用过，当时想学yarn有毛用，当今npm扫天下。现在yarn经常出现在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2019-07-17T05:56:54.000Z">
+<meta property="article:modified_time" content="2021-02-09T09:54:14.759Z">
+<meta property="article:author" content="周小米">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2019/07/17/%E5%89%8D%E7%AB%AF/%E5%85%A5%E5%9D%91yarn/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-09 17:54:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://gitee.com/zz16/upic/raw/master/2020/04/1586355398747.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-music"></i><span> 图库</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">周小米的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-music"></i><span> 图库</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">入坑yarn</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-07-17T05:56:54.000Z" title="undefined 2019-07-17 13:56:54">2019-07-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近研究Taro，用npm安装taro环境那是一个巨慢啊，公司还有一个老的vue项目，npm安装依赖很难成功，有时安装成功了也运行报错，要反复删掉重装直到运行成功，今天运行项目就折腾了一上午，最终用yarn一次解决，那个蛋疼啊。</p>
+<p>看taro文档也支持yarn安装，之前也听说过有yarn这个东西，yarn出现很久了但是从来没有用过，当时想学yarn有毛用，当今npm扫天下。现在yarn经常出现在眼球中，总之学习下不吃亏。</p>
+<p>当然大神都是全学的，像我等个渣渣就经常纠结是用npm还是yarn、是学习vue还是学习react、是用sass还是用less，是用webpack还是rollup。😂。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Yarn 是 Facebook, Google, Exponent 和 Tilde 开发的一款新的 JavaScript 包管理工具。就像我们可以从官方文档了解那样，它的目的是解决这些团队使用 npm 面临的少数问题，即：</p>
+<p>安装的时候无法保证速度/一致性<br>安全问题，因为 npm 安装时允许运行代码</p>
+<p>Yarn 同样是一个从 npm 注册源获取模块的新的 CLI 客户端。注册的方式不会有任何变化 —— 你同样可以正常获取与发布包。</p>
+<h2 id="安装yarn"><a href="#安装yarn" class="headerlink" title="安装yarn"></a>安装yarn</h2><p>参照文档 <a target="_blank" rel="noopener" href="https://www.yarnpkg.com/zh-Hans/docs/install#mac-stable">安装yarn</a></p>
+<p>因为我安装了 nvm，应该排除安装 Node.js 以便使用 nvm 的 Node.js 版本，用如下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install yarn --without-node</span><br></pre></td></tr></table></figure>
+<p>运行命令来测试 Yarn 是否安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn --version</span><br><span class="line"><span class="meta">#</span><span class="bash"> 1.17.3</span></span><br></pre></td></tr></table></figure>
+<h2 id="yarn常用命令"><a href="#yarn常用命令" class="headerlink" title="yarn常用命令"></a>yarn常用命令</h2><p><strong>初始化新项目</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn init</span><br></pre></td></tr></table></figure>
+<p><strong>添加依赖包</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn add [package]</span><br><span class="line">yarn add [package]@[version]</span><br><span class="line">yarn add [package]@[tag]</span><br></pre></td></tr></table></figure>
+<p><strong>将依赖项添加到不同依赖项类别</strong></p>
+<p>分别添加到 <code>devDependencies</code>、<code>peerDependencies</code> 和 <code>optionalDependencies</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn add [package] --dev</span><br><span class="line">yarn add [package] --peer</span><br><span class="line">yarn add [package] --optional</span><br></pre></td></tr></table></figure>
+<p><strong>升级依赖包</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn upgrade [package]</span><br><span class="line">yarn upgrade [package]@[version]</span><br><span class="line">yarn upgrade [package]@[tag]</span><br></pre></td></tr></table></figure>
+<p><strong>移除依赖包</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn remove [package]</span><br></pre></td></tr></table></figure>
+<p><strong>安装项目的全部依赖</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn install</span><br></pre></td></tr></table></figure>
+<h2 id="从-npm-迁移"><a href="#从-npm-迁移" class="headerlink" title="从 npm 迁移"></a>从 npm 迁移</h2><p>对多数用户来说，从npm迁移的过程应该非常简单。Yarn和npm使用相同的<code>package.json</code>格式，而且Yarn可以从npm安装依赖包。</p>
+<p>如果你打算在现有项目中尝试Yarn，只需执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn</span><br></pre></td></tr></table></figure>
+<p>Yarn将通过自己的解析算法来重新组织<code>node_modules</code> 目录，这个算法和<a target="_blank" rel="noopener" href="https://nodejs.org/api/modules.html#modules_all_together">node.js 模块解析算法</a>是兼容的。</p>
+<h2 id="yarn-与-npm-命令比较"><a href="#yarn-与-npm-命令比较" class="headerlink" title="yarn 与 npm 命令比较"></a>yarn 与 npm 命令比较</h2><table>
+<thead>
+<tr>
+<th align="left">npm (v5)</th>
+<th align="left">Yarn</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>npm install</code></td>
+<td align="left"><code>yarn install</code></td>
+</tr>
+<tr>
+<td align="left"><strong>(不适用)</strong></td>
+<td align="left"><code>yarn install --flat</code></td>
+</tr>
+<tr>
+<td align="left"><strong>(不适用)</strong></td>
+<td align="left"><code>yarn install --har</code></td>
+</tr>
+<tr>
+<td align="left"><code>npm install --no-package-lock</code></td>
+<td align="left"><code>yarn install --no-lockfile</code></td>
+</tr>
+<tr>
+<td align="left"><strong>(不适用)</strong></td>
+<td align="left"><code>yarn install --pure-lockfile</code></td>
+</tr>
+<tr>
+<td align="left"><code>npm install [package]</code></td>
+<td align="left"><code>yarn add [package]</code></td>
+</tr>
+<tr>
+<td align="left"><code>npm install [package] --save-dev</code></td>
+<td align="left"><code>yarn add [package] --dev</code></td>
+</tr>
+<tr>
+<td align="left"><strong>(不适用)</strong></td>
+<td align="left"><code>yarn add [package] --peer</code></td>
+</tr>
+<tr>
+<td align="left"><code>npm install [package] --save-optional</code></td>
+<td align="left"><code>yarn add [package] --optional</code></td>
+</tr>
+<tr>
+<td align="left"><code>npm install [package] --save-exact</code></td>
+<td align="left"><code>yarn add [package] --exact</code></td>
+</tr>
+<tr>
+<td align="left"><strong>(不适用)</strong></td>
+<td align="left"><code>yarn add [package] --tilde</code></td>
+</tr>
+<tr>
+<td align="left"><code>npm install [package] --global</code></td>
+<td align="left"><code>yarn global add [package]</code></td>
+</tr>
+<tr>
+<td align="left"><code>npm update --global</code></td>
+<td align="left"><code>yarn global upgrade</code></td>
+</tr>
+<tr>
+<td align="left"><code>npm rebuild</code></td>
+<td align="left"><code>yarn install --force</code></td>
+</tr>
+<tr>
+<td align="left"><code>npm uninstall [package]</code></td>
+<td align="left"><code>yarn remove [package]</code></td>
+</tr>
+<tr>
+<td align="left"><code>npm cache clean</code></td>
+<td align="left"><code>yarn cache clean [package]</code></td>
+</tr>
+<tr>
+<td align="left"><code>rm -rf node_modules &amp;&amp; npm install</code></td>
+<td align="left"><code>yarn upgrade</code></td>
+</tr>
+</tbody></table>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/07/25/git%E6%8A%80%E5%B7%A7/github%E8%AE%BF%E9%97%AE%E6%85%A2%E5%92%8Cclone%E6%85%A2%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">github访问慢和clone慢解决方案</div></div></a></div><div class="next-post pull-right"><a href="/2019/07/16/mac%E6%8A%80%E5%B7%A7/Mac%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8nginx/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Mac安装和使用nginx</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://gitee.com/zz16/upic/raw/master/2020/04/1586355398747.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">周小米</div><div class="author-info__description">没有高深的知识，没有进阶的技巧。只是，万丈高楼平地起，千里之行始于足下，千里长提溃于蚁穴。能把简单的做好就是不简单，你能走多远，不是在于你有多聪明，而是取决于你有多勤奋，共勉。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">暂无公告</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85yarn"><span class="toc-number">3.</span> <span class="toc-text">安装yarn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yarn%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">yarn常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E-npm-%E8%BF%81%E7%A7%BB"><span class="toc-number">5.</span> <span class="toc-text">从 npm 迁移</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yarn-%E4%B8%8E-npm-%E5%91%BD%E4%BB%A4%E6%AF%94%E8%BE%83"><span class="toc-number">6.</span> <span class="toc-text">yarn 与 npm 命令比较</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/09/git%E6%8A%80%E5%B7%A7/git%20cherry-pick%20%E6%95%99%E7%A8%8B/" title="git cherry-pick 教程"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git cherry-pick 教程"/></a><div class="content"><a class="title" href="/2021/02/09/git%E6%8A%80%E5%B7%A7/git%20cherry-pick%20%E6%95%99%E7%A8%8B/" title="git cherry-pick 教程">git cherry-pick 教程</a><time datetime="2021-02-09T15:00:22.000Z" title="发表于 2021-02-09 23:00:22">2021-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/09/a/" title="a"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="a"/></a><div class="content"><a class="title" href="/2021/02/09/a/" title="a">a</a><time datetime="2021-02-09T12:08:01.000Z" title="发表于 2021-02-09 20:08:01">2021-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E4%B8%80%E9%94%AE%E4%BC%98%E5%8C%96WindowsServer%E4%B8%BA%E5%AE%B6%E7%94%A8%E7%B3%BB%E7%BB%9F/" title="一键优化Windows Server为家用系统"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一键优化Windows Server为家用系统"/></a><div class="content"><a class="title" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E4%B8%80%E9%94%AE%E4%BC%98%E5%8C%96WindowsServer%E4%B8%BA%E5%AE%B6%E7%94%A8%E7%B3%BB%E7%BB%9F/" title="一键优化Windows Server为家用系统">一键优化Windows Server为家用系统</a><time datetime="2021-02-08T07:30:10.000Z" title="发表于 2021-02-08 15:30:10">2021-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E7%A6%BB%E7%BA%BFKMS%E6%BF%80%E6%B4%BB%E5%B7%A5%E5%85%B7%20HEU%20KMS%20Activator/" title="离线KMS激活工具 HEU KMS Activator"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="离线KMS激活工具 HEU KMS Activator"/></a><div class="content"><a class="title" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E7%A6%BB%E7%BA%BFKMS%E6%BF%80%E6%B4%BB%E5%B7%A5%E5%85%B7%20HEU%20KMS%20Activator/" title="离线KMS激活工具 HEU KMS Activator">离线KMS激活工具 HEU KMS Activator</a><time datetime="2021-02-08T06:45:30.000Z" title="发表于 2021-02-08 14:45:30">2021-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/%E5%89%8D%E7%AB%AF/JS%E4%B8%AD%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6/" title="JS中不常用但强大的操作符"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JS中不常用但强大的操作符"/></a><div class="content"><a class="title" href="/2021/02/08/%E5%89%8D%E7%AB%AF/JS%E4%B8%AD%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6/" title="JS中不常用但强大的操作符">JS中不常用但强大的操作符</a><time datetime="2021-02-08T06:17:16.000Z" title="发表于 2021-02-08 14:17:16">2021-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2016 - 2021 By 周小米</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">皖ICP备19002262号 </a> </div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadWaline () {
+  function initWaline () {
+    let initData = {
+      el: '#waline-wrap',
+      serverURL: 'http://waline.zhoujie16.cn',
+      avatar: 'monsterid',
+      path: location.pathname,
+      emojiCDN: '',
+      emojiMaps: {},
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const waline = new Waline(initData)
+  }
+
+  if (typeof Waline === 'function') initWaline() 
+  else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(initWaline)
+}
+
+if ('Waline' === 'Waline' || !false) {
+  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://oss.zhoujie16.cn/cdn/hexo-blog/common.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

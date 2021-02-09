@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>移动端输入框填坑系列 | 周小米的博客</title><meta name="author" content="周小米"><meta name="copyright" content="周小米"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="输入在移动端是一个很常用的功能，那么输入框必然是一个很重要的部分。然而，移动端输入框总会遇到各种各样的问题，无论是样式还是ios和android两端体验不一致都是很让我们头疼的问题，那么如何使移动web的输入框体验更贴近原生也成了一个需要我们多多思考和研究的问题。 一、文字输入限制问题我们拿最多可输入16个字为例。当输入字数（注意，不是字符长度）超过16字时，会触发tips提示，并且不能继续输入。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端输入框填坑系列">
+<meta property="og:url" content="http://example.com/2019/02/28/%E5%89%8D%E7%AB%AF/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BE%93%E5%85%A5%E6%A1%86%E5%A1%AB%E5%9D%91%E7%B3%BB%E5%88%97/index.html">
+<meta property="og:site_name" content="周小米的博客">
+<meta property="og:description" content="输入在移动端是一个很常用的功能，那么输入框必然是一个很重要的部分。然而，移动端输入框总会遇到各种各样的问题，无论是样式还是ios和android两端体验不一致都是很让我们头疼的问题，那么如何使移动web的输入框体验更贴近原生也成了一个需要我们多多思考和研究的问题。 一、文字输入限制问题我们拿最多可输入16个字为例。当输入字数（注意，不是字符长度）超过16字时，会触发tips提示，并且不能继续输入。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2019-02-28T03:24:44.000Z">
+<meta property="article:modified_time" content="2021-02-09T09:54:14.759Z">
+<meta property="article:author" content="周小米">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2019/02/28/%E5%89%8D%E7%AB%AF/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BE%93%E5%85%A5%E6%A1%86%E5%A1%AB%E5%9D%91%E7%B3%BB%E5%88%97/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-09 17:54:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://gitee.com/zz16/upic/raw/master/2020/04/1586355398747.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-music"></i><span> 图库</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">周小米的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-music"></i><span> 图库</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">移动端输入框填坑系列</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-02-28T03:24:44.000Z" title="undefined 2019-02-28 11:24:44">2019-02-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>输入在移动端是一个很常用的功能，那么输入框必然是一个很重要的部分。然而，移动端输入框总会遇到各种各样的问题，无论是样式还是ios和android两端体验不一致都是很让我们头疼的问题，那么如何使移动web的输入框体验更贴近原生也成了一个需要我们多多思考和研究的问题。</p>
+<h3 id="一、文字输入限制问题"><a href="#一、文字输入限制问题" class="headerlink" title="一、文字输入限制问题"></a>一、文字输入限制问题</h3><p>我们拿最多可输入16个字为例。当输入字数（注意，不是字符长度）超过16字时，会触发tips提示，并且不能继续输入。</p>
+<p>办法一：<br>textarea可以使用maxlength进行输入字数限制。<br>但是这个办法只能单纯的限制length，有时并不能真正的结局问题。<br>办法二：<br>在将第二个办法之前先来讲讲下面的几种情况：</p>
+<h5 id="1、非直接的文字输入"><a href="#1、非直接的文字输入" class="headerlink" title="1、非直接的文字输入"></a><strong>1、非直接的文字输入</strong></h5><p>什么叫做非直接的文字输入呢？</p>
+<p><img src="http://pic1.zhoujie16.cn/006tNc79ly1g3zkiyktsxg30b10ad774.gif" alt="img"></p>
+<p>当输入汉字时必然会是非直接输入，需要我们点选才能正式输入。<br>当我们字数限制为16个字，需要实时检查是否到16字。输入文字时，当有非直接的文字输入时，监听keydown事件和input事件都会直接触发判断字数逻辑，会截断我们正在输入的文字。<br>解决办法：<br>监听compositionend（当直接的文字输入时触发）这时，当没选中中文的时候不会进行字数判断。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#input&#x27;</span>).on(<span class="string">&#x27;compositionend&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> len = $(<span class="built_in">this</span>).val().length;</span><br><span class="line">  <span class="keyword">if</span> (len &gt; <span class="number">16</span>) &#123;</span><br><span class="line">    <span class="comment">// 提示超过16字</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="2、emoji表情的输入"><a href="#2、emoji表情的输入" class="headerlink" title="2、emoji表情的输入"></a><strong>2、emoji表情的输入</strong></h5><p>当输入emoji的时候，但是，当输入emoji表情的时候，js中判断emoji表情的length为2，因此emoji正常应该最多只能输入8个，但是ios端却把emoji的length算为1，可以输入16个emoji。这样就导致了两端的体验不同。因此需要在js中来进行字数限制。<br>再加上汉字输入问题，那么就加入一个标记位，来判断是否是直接的文字输入。然后监听input，限制字数，当超过字数限制的时候，把前16个字截断显示出来就ok了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cpLock;</span><br><span class="line">$(<span class="string">&#x27;#input&#x27;</span>).on(<span class="string">&#x27;compositionstart&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  cpLock = <span class="literal">true</span>；</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&#x27;#input&#x27;</span>).on(<span class="string">&#x27;compositionend&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  cpLock = <span class="literal">false</span>;</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">&#x27;#input&#x27;</span>).on(<span class="string">&#x27;input&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!cpLock) &#123;</span><br><span class="line">    <span class="keyword">if</span> (e.target.value.length - <span class="number">17</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> txt = $(e.target).val().substring(<span class="number">0</span>, <span class="number">16</span>);</span><br><span class="line">      $(e.target).val(txt);</span><br><span class="line">      <span class="comment">// 超过16字提示</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="二、textarea置底展示问题"><a href="#二、textarea置底展示问题" class="headerlink" title="二、textarea置底展示问题"></a>二、textarea置底展示问题</h3><p>ios中的输入体验永远伴随着一个问题，就是当唤起键盘后，整个页面会被键盘压缩，也就是说页面的高度变小，并且所有的fixed全部变为了absolute。</p>
+<h6 id="android效果："><a href="#android效果：" class="headerlink" title="android效果："></a>android效果：</h6><img src="http://www.alloyteam.com/wp-content/uploads/2017/03/2D60002621E863465FA9D1D125E0A625.png" width="300"/>
+
+<img src="http://www.alloyteam.com/wp-content/uploads/2017/03/19B6FBC1CDAB2DFD5D8372835AD40D5B.jpg" width="300"/>
+
+<img src="http://www.alloyteam.com/wp-content/uploads/2017/03/0F235217BAA61D883AE0FF749D56639E.png" width="300"/>
+
+<img src="http://www.alloyteam.com/wp-content/uploads/2017/03/E7A2A47E4CBADEEC480C817F33420B89.jpg" width="300"/>
+
+<p>使用fixed定位<br>可见android中唤起键盘是覆盖在页面上，不会压缩页面</p>
+<h6 id="在ios上的效果："><a href="#在ios上的效果：" class="headerlink" title="在ios上的效果："></a>在ios上的效果：</h6><img src="http://www.alloyteam.com/wp-content/uploads/2017/03/C2C872ABEC19523C4F7FA12C8BF9AF6C.png" width="300"/>
+
+<img src="http://www.alloyteam.com/wp-content/uploads/2017/03/13433D7D79C882AD3C77E44923C0E2AC.png" width="300"/>
+
+<img src="http://www.alloyteam.com/wp-content/uploads/2017/03/7750008C947D43327F2C12BBC837B52E.png" width="300"/>
+
+<img src="http://www.alloyteam.com/wp-content/uploads/2017/03/1A9474E333E9DC2B5943AA23B78BE9E6.png" width="300"/>
+
+<p>那么如果我们需要将<strong>输入框固定在屏幕下方，而当键盘被唤起同时输入框固定在键盘上方</strong>（如下图样式）该如何解决呢？</p>
+<img src="http://www.alloyteam.com/wp-content/uploads/2017/03/6E894A4776B4E45EFEFC0A33A6234A51.png" width="300"/>
+
+<img src="http://www.alloyteam.com/wp-content/uploads/2017/03/C45EADCFE7E097D2D49E5315878F42DC.png" width="300"/>
+
+<img src="http://www.alloyteam.com/wp-content/uploads/2017/03/F0C85FCCA1DD9D467AB1860DB1886434.png" width="300"/>
+
+<p>可以看出，键盘会将页面顶上去。那么如果希望可以将输入框和键盘完全贴合，我们可以使用div模拟一个假的输入框，使用定位将真正的输入框隐藏掉，当点击假的输入框的时候，将真正的输入框定位到键盘上方，并且手动获取输入框焦点。</p>
+<h6 id="在实现过程中需要注意下面几个问题："><a href="#在实现过程中需要注意下面几个问题：" class="headerlink" title="在实现过程中需要注意下面几个问题："></a>在实现过程中需要注意下面几个问题：</h6><p><strong>1、真正的输入框的位置计算</strong>：<br>首先记录无键盘时的window.innerHeight，当键盘弹出后再获取当前的window.innerHeight，两者的差值即为键盘的高度，那么定位真输入框自然就很容易了<br><strong>2、在ios下手动获取焦点不可以用click事件，需要使用tap事件才可以手动触发</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#fake-input&#x27;</span>).on($.os.ios ? <span class="string">&#x27;tap&#x27;</span> : <span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  initHeight = <span class="built_in">window</span>.innerHeight;</span><br><span class="line">  $(<span class="string">&#x27;#input&#x27;</span>).focus();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>3、当键盘收起的时候我们需要将真输入框再次隐藏掉，除了使用失去焦点（blur）方法，还有什么方法可以判断键盘是否收起呢？</strong><br>这里可以使用setInterval监听，当当前window.innerHeight和整屏高度相等的时候判断为键盘收起。<br><strong>注意</strong>：键盘弹起需要一点时间，所以计算当前屏幕高度也需要使用setInterval<br><strong>4、因为textarea中的文字不能置底显示，当输入超过一行textarea需要自动调整高度</strong>，因此将scrollHeight赋值给textarea的height。当删除文字的时候需要height也有变化，因此每次input都先将height置0，然后再赋值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#textarea&#x27;</span>).css(<span class="string">&#x27;height&#x27;</span>, <span class="number">0</span>);</span><br><span class="line">$(<span class="string">&#x27;#textarea&#x27;</span>).css(<span class="string">&#x27;height&#x27;</span>, $(<span class="string">&#x27;#textarea&#x27;</span>)[<span class="number">0</span>].scrollHeight);</span><br></pre></td></tr></table></figure>
+<p>未完待续…</p>
+<p>原创文章转载请注明：</p>
+<p>转载自AlloyTeam：<a target="_blank" rel="noopener" href="http://www.alloyteam.com/2017/03/moves-the-input-box-fill-series-a/">http://www.alloyteam.com/2017/03/moves-the-input-box-fill-series-a/</a></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/02/28/%E5%89%8D%E7%AB%AF/chrome%E6%A8%A1%E6%8B%9F%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8%E7%8E%AF%E5%A2%83/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">chrome模拟微信浏览器环境</div></div></a></div><div class="next-post pull-right"><a href="/2019/02/28/%E5%89%8D%E7%AB%AF/%E5%85%B3%E4%BA%8Einput%E5%B1%9E%E6%80%A7type-file%E7%9A%84%E5%8F%8A%E5%85%B6files%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%B7%B1%E5%B1%82%E6%8E%A2%E7%A9%B6/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">关于input属性type=file的及其files对象的深层探究</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://gitee.com/zz16/upic/raw/master/2020/04/1586355398747.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">周小米</div><div class="author-info__description">没有高深的知识，没有进阶的技巧。只是，万丈高楼平地起，千里之行始于足下，千里长提溃于蚁穴。能把简单的做好就是不简单，你能走多远，不是在于你有多聪明，而是取决于你有多勤奋，共勉。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">暂无公告</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%96%87%E5%AD%97%E8%BE%93%E5%85%A5%E9%99%90%E5%88%B6%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">一、文字输入限制问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81%E9%9D%9E%E7%9B%B4%E6%8E%A5%E7%9A%84%E6%96%87%E5%AD%97%E8%BE%93%E5%85%A5"><span class="toc-number">1.0.1.</span> <span class="toc-text">1、非直接的文字输入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81emoji%E8%A1%A8%E6%83%85%E7%9A%84%E8%BE%93%E5%85%A5"><span class="toc-number">1.0.2.</span> <span class="toc-text">2、emoji表情的输入</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81textarea%E7%BD%AE%E5%BA%95%E5%B1%95%E7%A4%BA%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">二、textarea置底展示问题</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#android%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">android效果：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9C%A8ios%E4%B8%8A%E7%9A%84%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">在ios上的效果：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9C%A8%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%B8%8B%E9%9D%A2%E5%87%A0%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">在实现过程中需要注意下面几个问题：</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/09/git%E6%8A%80%E5%B7%A7/git%20cherry-pick%20%E6%95%99%E7%A8%8B/" title="git cherry-pick 教程"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git cherry-pick 教程"/></a><div class="content"><a class="title" href="/2021/02/09/git%E6%8A%80%E5%B7%A7/git%20cherry-pick%20%E6%95%99%E7%A8%8B/" title="git cherry-pick 教程">git cherry-pick 教程</a><time datetime="2021-02-09T15:00:22.000Z" title="发表于 2021-02-09 23:00:22">2021-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/09/a/" title="a"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="a"/></a><div class="content"><a class="title" href="/2021/02/09/a/" title="a">a</a><time datetime="2021-02-09T12:08:01.000Z" title="发表于 2021-02-09 20:08:01">2021-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E4%B8%80%E9%94%AE%E4%BC%98%E5%8C%96WindowsServer%E4%B8%BA%E5%AE%B6%E7%94%A8%E7%B3%BB%E7%BB%9F/" title="一键优化Windows Server为家用系统"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一键优化Windows Server为家用系统"/></a><div class="content"><a class="title" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E4%B8%80%E9%94%AE%E4%BC%98%E5%8C%96WindowsServer%E4%B8%BA%E5%AE%B6%E7%94%A8%E7%B3%BB%E7%BB%9F/" title="一键优化Windows Server为家用系统">一键优化Windows Server为家用系统</a><time datetime="2021-02-08T07:30:10.000Z" title="发表于 2021-02-08 15:30:10">2021-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E7%A6%BB%E7%BA%BFKMS%E6%BF%80%E6%B4%BB%E5%B7%A5%E5%85%B7%20HEU%20KMS%20Activator/" title="离线KMS激活工具 HEU KMS Activator"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="离线KMS激活工具 HEU KMS Activator"/></a><div class="content"><a class="title" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E7%A6%BB%E7%BA%BFKMS%E6%BF%80%E6%B4%BB%E5%B7%A5%E5%85%B7%20HEU%20KMS%20Activator/" title="离线KMS激活工具 HEU KMS Activator">离线KMS激活工具 HEU KMS Activator</a><time datetime="2021-02-08T06:45:30.000Z" title="发表于 2021-02-08 14:45:30">2021-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/%E5%89%8D%E7%AB%AF/JS%E4%B8%AD%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6/" title="JS中不常用但强大的操作符"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JS中不常用但强大的操作符"/></a><div class="content"><a class="title" href="/2021/02/08/%E5%89%8D%E7%AB%AF/JS%E4%B8%AD%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6/" title="JS中不常用但强大的操作符">JS中不常用但强大的操作符</a><time datetime="2021-02-08T06:17:16.000Z" title="发表于 2021-02-08 14:17:16">2021-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2016 - 2021 By 周小米</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">皖ICP备19002262号 </a> </div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadWaline () {
+  function initWaline () {
+    let initData = {
+      el: '#waline-wrap',
+      serverURL: 'http://waline.zhoujie16.cn',
+      avatar: 'monsterid',
+      path: location.pathname,
+      emojiCDN: '',
+      emojiMaps: {},
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const waline = new Waline(initData)
+  }
+
+  if (typeof Waline === 'function') initWaline() 
+  else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(initWaline)
+}
+
+if ('Waline' === 'Waline' || !false) {
+  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://oss.zhoujie16.cn/cdn/hexo-blog/common.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

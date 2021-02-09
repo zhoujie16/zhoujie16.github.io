@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第四天 4-1 生命周期 | 周小米的博客</title><meta name="author" content="周小米"><meta name="copyright" content="周小米"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、什么是生命周期生命周期指的是一个对象的生老病死。  1、动物的生命周期：从初生到死亡。 2、产品的生命周期：从开始到淘汰。  Vue 的生命周期指的是 Vue 组件的生命周期，从组件创建到销毁。 二、Vue 的生命周期先来看官方的 Vue 生命周期的图  这幅图非常详细的介绍了 Vue 的生命周期，刚开始看，可能有点懵，没关系，随着慢慢的深入，回过头来再看这幅图，就会豁然开朗 总的来说 Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第四天 4-1 生命周期">
+<meta property="og:url" content="http://example.com/2019/08/09/vue/%E5%85%AC%E5%8F%B8vue%E6%8A%80%E6%9C%AF%E5%9F%B9%E8%AE%AD/%E7%AC%AC4%E5%A4%A9/1.%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/index.html">
+<meta property="og:site_name" content="周小米的博客">
+<meta property="og:description" content="一、什么是生命周期生命周期指的是一个对象的生老病死。  1、动物的生命周期：从初生到死亡。 2、产品的生命周期：从开始到淘汰。  Vue 的生命周期指的是 Vue 组件的生命周期，从组件创建到销毁。 二、Vue 的生命周期先来看官方的 Vue 生命周期的图  这幅图非常详细的介绍了 Vue 的生命周期，刚开始看，可能有点懵，没关系，随着慢慢的深入，回过头来再看这幅图，就会豁然开朗 总的来说 Vue">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2019-08-08T17:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-09T09:36:46.111Z">
+<meta property="article:author" content="周小米">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2019/08/09/vue/%E5%85%AC%E5%8F%B8vue%E6%8A%80%E6%9C%AF%E5%9F%B9%E8%AE%AD/%E7%AC%AC4%E5%A4%A9/1.%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-09 17:36:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://gitee.com/zz16/upic/raw/master/2020/04/1586355398747.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-music"></i><span> 图库</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">周小米的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-music"></i><span> 图库</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">第四天 4-1 生命周期</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-08-08T17:00:00.000Z" title="undefined 2019-08-09 01:00:00">2019-08-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%AC%E5%8F%B8vue%E6%8A%80%E6%9C%AF%E5%9F%B9%E8%AE%AD/">公司vue技术培训</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="一、什么是生命周期"><a href="#一、什么是生命周期" class="headerlink" title="一、什么是生命周期"></a>一、什么是生命周期</h3><p>生命周期指的是一个对象的生老病死。</p>
+<ul>
+<li>1、动物的生命周期：从初生到死亡。</li>
+<li>2、产品的生命周期：从开始到淘汰。</li>
+</ul>
+<p>Vue 的生命周期指的是 Vue 组件的生命周期，从组件创建到销毁。</p>
+<h3 id="二、Vue-的生命周期"><a href="#二、Vue-的生命周期" class="headerlink" title="二、Vue 的生命周期"></a>二、Vue 的生命周期</h3><p>先来看官方的 Vue 生命周期的图</p>
+<p><img src="http://pic1.zhoujie16.cn/20190803232541.png" alt="img"></p>
+<p>这幅图非常详细的介绍了 Vue 的生命周期，刚开始看，可能有点懵，没关系，随着慢慢的深入，回过头来再看这幅图，就会豁然开朗</p>
+<h4 id="总的来说-Vue-的生命周期包括四个状态"><a href="#总的来说-Vue-的生命周期包括四个状态" class="headerlink" title="总的来说 Vue 的生命周期包括四个状态"></a>总的来说 Vue 的生命周期包括四个状态</h4><p>1、creating 状态–vue 实例被创建的过程 </p>
+<p>2、mounting 状态–挂到到真实的 DOM 节点 </p>
+<p>3、updating 状态–如果 data 中的数据改变就会触发对应组件的重新渲染 </p>
+<p>4、destroying 状态–实例销毁</p>
+<h4 id="Vue-生命周期方法和介绍"><a href="#Vue-生命周期方法和介绍" class="headerlink" title="Vue 生命周期方法和介绍"></a>Vue 生命周期方法和介绍</h4><p>上面个四个状态对应 8 个方法</p>
+<table>
+<thead>
+<tr>
+<th align="left">方法名</th>
+<th align="left">状态</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">beforeCreate</td>
+<td align="left">creating 状态</td>
+<td align="left">实例创建之前调用</td>
+</tr>
+<tr>
+<td align="left">created</td>
+<td align="left">creating 状态</td>
+<td align="left">实例创建成功，此时 data 中的数据显示出来了</td>
+</tr>
+<tr>
+<td align="left">beforeMount</td>
+<td align="left">mounting 状态</td>
+<td align="left">数据中的 data 在模版中先占一个位置</td>
+</tr>
+<tr>
+<td align="left">mounted</td>
+<td align="left">mounting 状态</td>
+<td align="left">模版中的 data 数据直接显示出来了</td>
+</tr>
+<tr>
+<td align="left">beforeUpdate</td>
+<td align="left">updating 状态</td>
+<td align="left">当 data 数据发生变化调用，发生在虚拟 DOM 重新渲染和打补丁之前</td>
+</tr>
+<tr>
+<td align="left">updated</td>
+<td align="left">updating 状态</td>
+<td align="left">数据更改导致的虚拟 DOM 重新渲染和打补丁</td>
+</tr>
+<tr>
+<td align="left">beforeDestroy</td>
+<td align="left">destroying 状态</td>
+<td align="left">在 vue 实例销毁之前调用，此时实例任然可用</td>
+</tr>
+<tr>
+<td align="left">destroyed</td>
+<td align="left">destroying 状态</td>
+<td align="left">在 vue 实例销毁之后调用，vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁</td>
+</tr>
+</tbody></table>
+<h3 id="三、实例验证（上代码）"><a href="#三、实例验证（上代码）" class="headerlink" title="三、实例验证（上代码）"></a>三、实例验证（上代码）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;hello&quot;&gt;</span><br><span class="line">    &lt;h1&gt;&#123;&#123; msg &#125;&#125;&lt;&#x2F;h1&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;HelloWorld&quot;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &quot;Hello World&quot;,</span><br><span class="line">      timer: null</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeCreate: function() &#123;</span><br><span class="line">    console.log(&quot;1-beforeCreate 创建之前&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  created: function() &#123;</span><br><span class="line">    console.log(&quot;2-created 创建完成&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeMount: function() &#123;</span><br><span class="line">    console.log(&quot;3-beforeMount 挂载之前&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted: function() &#123;</span><br><span class="line">    console.log(&quot;4-mounted 已经挂载&quot;);</span><br><span class="line">    this.timer &#x3D; setInterval(() &#x3D;&gt; &#123;</span><br><span class="line">      console.log(&quot;setInterval&quot;);</span><br><span class="line">    &#125;, 1000);</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeUpdate: function() &#123;</span><br><span class="line">    console.log(&quot;5-beforeUpdate 数据更新前&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  updated: function() &#123;</span><br><span class="line">    console.log(&quot;6-updated 数据更新后&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeDestroy: function() &#123;</span><br><span class="line">    console.log(&quot;7-beforeDestroy 销毁之前&quot;);</span><br><span class="line">    clearInterval(this.timer);</span><br><span class="line">  &#125;,</span><br><span class="line">  destroyed: function() &#123;</span><br><span class="line">    console.log(&quot;8-destroyed 销毁之后&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="四、了解生命周期的作用"><a href="#四、了解生命周期的作用" class="headerlink" title="四、了解生命周期的作用"></a>四、了解生命周期的作用</h3><p>那么这些生命周期有什么用呢？我们以在不同的生命周期方法中做不同的操作处理，比如：</p>
+<p>**PS:**一般情况下我们在 <code>beforecreate</code>方法中可以加 Loading 事件，在 <code>created</code>方法中结束 Loading，并且还可以在此方法中做一些初始化操作，在 <code>mounted</code>方法中进行发起异步服务端请求。当然，如果你想页面没有加载完成就请求数据那么在 <code>created</code>方法请求数据也没有什么问题，可以在 <code>beforeDestroy</code>方法中弹出确认删除，<code>destroyed</code>中清除相关数据达到资源的有效利用</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/08/09/vue/%E5%85%AC%E5%8F%B8vue%E6%8A%80%E6%9C%AF%E5%9F%B9%E8%AE%AD/%E7%AC%AC4%E5%A4%A9/2.vue-devtools%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">第四天 4-2 调试工具 vue-devtools</div></div></a></div><div class="next-post pull-right"><a href="/2019/08/08/vue/%E5%85%AC%E5%8F%B8vue%E6%8A%80%E6%9C%AF%E5%9F%B9%E8%AE%AD/%E7%AC%AC3%E5%A4%A9/vue-cli%E7%9A%84%E4%BD%BF%E7%94%A8/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">第三天 3-1 vue-cli的使用</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://gitee.com/zz16/upic/raw/master/2020/04/1586355398747.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">周小米</div><div class="author-info__description">没有高深的知识，没有进阶的技巧。只是，万丈高楼平地起，千里之行始于足下，千里长提溃于蚁穴。能把简单的做好就是不简单，你能走多远，不是在于你有多聪明，而是取决于你有多勤奋，共勉。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">暂无公告</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.</span> <span class="toc-text">一、什么是生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Vue-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">2.</span> <span class="toc-text">二、Vue 的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%9A%84%E6%9D%A5%E8%AF%B4-Vue-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%8C%85%E6%8B%AC%E5%9B%9B%E4%B8%AA%E7%8A%B6%E6%80%81"><span class="toc-number">2.1.</span> <span class="toc-text">总的来说 Vue 的生命周期包括四个状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vue-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%96%B9%E6%B3%95%E5%92%8C%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.2.</span> <span class="toc-text">Vue 生命周期方法和介绍</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E4%BE%8B%E9%AA%8C%E8%AF%81%EF%BC%88%E4%B8%8A%E4%BB%A3%E7%A0%81%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">三、实例验证（上代码）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BA%86%E8%A7%A3%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">四、了解生命周期的作用</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/09/git%E6%8A%80%E5%B7%A7/git%20cherry-pick%20%E6%95%99%E7%A8%8B/" title="git cherry-pick 教程"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git cherry-pick 教程"/></a><div class="content"><a class="title" href="/2021/02/09/git%E6%8A%80%E5%B7%A7/git%20cherry-pick%20%E6%95%99%E7%A8%8B/" title="git cherry-pick 教程">git cherry-pick 教程</a><time datetime="2021-02-09T15:00:22.000Z" title="发表于 2021-02-09 23:00:22">2021-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/09/a/" title="a"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="a"/></a><div class="content"><a class="title" href="/2021/02/09/a/" title="a">a</a><time datetime="2021-02-09T12:08:01.000Z" title="发表于 2021-02-09 20:08:01">2021-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E4%B8%80%E9%94%AE%E4%BC%98%E5%8C%96WindowsServer%E4%B8%BA%E5%AE%B6%E7%94%A8%E7%B3%BB%E7%BB%9F/" title="一键优化Windows Server为家用系统"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一键优化Windows Server为家用系统"/></a><div class="content"><a class="title" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E4%B8%80%E9%94%AE%E4%BC%98%E5%8C%96WindowsServer%E4%B8%BA%E5%AE%B6%E7%94%A8%E7%B3%BB%E7%BB%9F/" title="一键优化Windows Server为家用系统">一键优化Windows Server为家用系统</a><time datetime="2021-02-08T07:30:10.000Z" title="发表于 2021-02-08 15:30:10">2021-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E7%A6%BB%E7%BA%BFKMS%E6%BF%80%E6%B4%BB%E5%B7%A5%E5%85%B7%20HEU%20KMS%20Activator/" title="离线KMS激活工具 HEU KMS Activator"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="离线KMS激活工具 HEU KMS Activator"/></a><div class="content"><a class="title" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E7%A6%BB%E7%BA%BFKMS%E6%BF%80%E6%B4%BB%E5%B7%A5%E5%85%B7%20HEU%20KMS%20Activator/" title="离线KMS激活工具 HEU KMS Activator">离线KMS激活工具 HEU KMS Activator</a><time datetime="2021-02-08T06:45:30.000Z" title="发表于 2021-02-08 14:45:30">2021-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/%E5%89%8D%E7%AB%AF/JS%E4%B8%AD%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6/" title="JS中不常用但强大的操作符"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JS中不常用但强大的操作符"/></a><div class="content"><a class="title" href="/2021/02/08/%E5%89%8D%E7%AB%AF/JS%E4%B8%AD%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6/" title="JS中不常用但强大的操作符">JS中不常用但强大的操作符</a><time datetime="2021-02-08T06:17:16.000Z" title="发表于 2021-02-08 14:17:16">2021-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2016 - 2021 By 周小米</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">皖ICP备19002262号 </a> </div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadWaline () {
+  function initWaline () {
+    let initData = {
+      el: '#waline-wrap',
+      serverURL: 'http://waline.zhoujie16.cn',
+      avatar: 'monsterid',
+      path: location.pathname,
+      emojiCDN: '',
+      emojiMaps: {},
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const waline = new Waline(initData)
+  }
+
+  if (typeof Waline === 'function') initWaline() 
+  else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(initWaline)
+}
+
+if ('Waline' === 'Waline' || !false) {
+  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://oss.zhoujie16.cn/cdn/hexo-blog/common.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

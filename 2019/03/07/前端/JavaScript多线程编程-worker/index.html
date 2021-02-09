@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JavaScript多线程编程-worker | 周小米的博客</title><meta name="author" content="周小米"><meta name="copyright" content="周小米"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="远离浏览器卡顿，提高用户体验，提升代码运行效率，使用多线程编程方法。  浏览器端JavaScript是以单线程的方式执行的，也就是说JavaScript和UI渲染占用同一个主线程，那就意味着，如果JavaScript进行高负载的数据处理，UI渲染就很有可能被阻断，浏览器就会出现卡顿，降低了用户体验。 为此，JavaScript提供了异步操作，比如定时器(setTimeout、setInterva">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript多线程编程-worker">
+<meta property="og:url" content="http://example.com/2019/03/07/%E5%89%8D%E7%AB%AF/JavaScript%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B-worker/index.html">
+<meta property="og:site_name" content="周小米的博客">
+<meta property="og:description" content="远离浏览器卡顿，提高用户体验，提升代码运行效率，使用多线程编程方法。  浏览器端JavaScript是以单线程的方式执行的，也就是说JavaScript和UI渲染占用同一个主线程，那就意味着，如果JavaScript进行高负载的数据处理，UI渲染就很有可能被阻断，浏览器就会出现卡顿，降低了用户体验。 为此，JavaScript提供了异步操作，比如定时器(setTimeout、setInterva">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2019-03-07T06:03:32.000Z">
+<meta property="article:modified_time" content="2021-02-09T09:54:14.468Z">
+<meta property="article:author" content="周小米">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2019/03/07/%E5%89%8D%E7%AB%AF/JavaScript%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B-worker/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-09 17:54:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://gitee.com/zz16/upic/raw/master/2020/04/1586355398747.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-music"></i><span> 图库</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">周小米的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-music"></i><span> 图库</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JavaScript多线程编程-worker</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-03-07T06:03:32.000Z" title="undefined 2019-03-07 14:03:32">2019-03-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>远离浏览器卡顿，提高用户体验，提升代码运行效率，使用多线程编程方法。</p>
+</blockquote>
+<p>浏览器端JavaScript是以单线程的方式执行的，也就是说JavaScript和UI渲染占用同一个主线程，那就意味着，如果JavaScript进行高负载的数据处理，UI渲染就很有可能被阻断，浏览器就会出现卡顿，降低了用户体验。</p>
+<p>为此，JavaScript提供了异步操作，比如定时器(setTimeout、setInterval)事件、Ajax请求、I/O回调等。我们可以把高负载的任务使用异步处理，它们将会被放入浏览器的事件任务队列（event loop）中去，等到JavaScript运行时执行线程空闲时候，事件队列才会按照先进先出的原则被一一执行。</p>
+<p><img src="http://pic1.zhoujie16.cn/squares.svg" alt="nodejs引以为荣的异步处理"></p>
+<p>通过类似定时器，回调函数等异步编程方式在平常的工作中已经足够，但是如果做复杂运算，这种方式的不足就逐渐体现出来，比如settimeout拿到的值并不正确，或者页面有复杂运算的时候很容易触发假死状态，异步代码会影响主线程的代码执行，异步终究还是单线程，不能从根本上解决问题。</p>
+<p>多线程（Web Worker）就应运而生，它是HTML5标准的一部分，这一规范定义了一套 API，允许一段JavaScript程序运行在主线程之外的另外一个线程中。将一些任务分配给后者运行。在主线程运行的同时，Worker（子）线程在后台运行，两者互不干扰。等到 Worker 线程完成计算任务，再把结果返回给主线程。这样的好处是，一些计算密集型或高延迟的任务，被 Worker 线程负担了，主线程（通常负责 UI 交互）就会很流畅，不会被阻塞或拖慢。</p>
+<h2 id="什么是web-worker"><a href="#什么是web-worker" class="headerlink" title="什么是web worker"></a>什么是web worker</h2><p><img src="http://pic1.zhoujie16.cn/squares.svg" alt="img"></p>
+<p>worker是window对象的一个方法，就是用它来创建多线程。可以通过以下方式来检测你的浏览器是否支持worker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (window.Worker) &#123;…… your code ……&#125;</span><br></pre></td></tr></table></figure>
+<p>一个worker是使用一个构造函数（Worker()）创建的一个对象，这个构造函数需要传入一个的JavaScript文件，这个文件包含将在工作线程中运行的代码。类似于这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let myWorker &#x3D; new Worker(&#39;worker.js&#39;);</span><br></pre></td></tr></table></figure>
+<p>主线程和子线程的数据不是共享的，worker通过postMessage() 方法和onmessage事件进行数据通信。主线程和子线程是双向的，都可以发送和监听事件。向一个worker发送消息需要这样做（main.js）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">myWorker.postMessage(&#39;hello, world&#39;); &#x2F;&#x2F; 发送</span><br><span class="line">worker.onmessage &#x3D; function (event) &#123; &#x2F;&#x2F; 接收</span><br><span class="line">    console.log(&#39;Received message &#39; + event.data);</span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> postMessage所传的数据都是拷贝传递（ArrayBuffer类型除外），所以子线程也是类似传递（worker.js）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">addEventListener(&#39;message&#39;, function (e) &#123;</span><br><span class="line">    postMessage(&#39;You said: &#39; + e.data);</span><br><span class="line">&#125;, false);</span><br></pre></td></tr></table></figure>
+<p> 当子线程运行结束后，使用完毕，为了节省系统资源，可以手动关闭子线程。如果worker没有监听消息，那么当所有任务执行完毕（包括计数器）后，它就会自动关闭。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 在主线程中关闭</span><br><span class="line">worker.terminate();</span><br><span class="line">&#x2F;&#x2F; 在子线程里线程</span><br><span class="line">close();</span><br><span class="line">Worker也提供了错误处理机制，当出错时会触发error事件。</span><br><span class="line">&#x2F;&#x2F; 监听 error 事件</span><br><span class="line">worker.addEventListener(&#39;error&#39;, function (e) &#123;</span><br><span class="line">  console.log(&#39;ERROR&#39;, e);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>web worker本身很简单，但是它的限制特别多。</p>
+<h2 id="使用的问题"><a href="#使用的问题" class="headerlink" title="使用的问题"></a>使用的问题</h2><h3 id="1、同源限制"><a href="#1、同源限制" class="headerlink" title="1、同源限制"></a>1、同源限制</h3><p>分配给Worker 线程运行的脚本文件（worker.js），必须与主线程的脚本文件(main.js)同源。这里的同源限制包括协议、域名和端口，不支持本地地址（file://）。这会带来一个问题，我们经常使用CDN来存储js文件，主线程的worker.js的域名指的是html文件所在的域，通过new Worker（url）加载的url属于CDN的域，会带来跨域的问题，实际开发中我们不会吧所有的代码都放在一个文件中让子线程加载，肯定会选择模块化开发。通过工具或库把代码合并到一个文件中，然后把子线程的代码生成一个文件url。<br>解决方法：<br>(1)将动态生成的脚本转换成Blob对象。<br>(2)然后给这个Blob对象创建一个URL。<br>(3)最后将这个创建好的URL作为地址传给Worker的构造函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let script &#x3D; &#39;console.log(&quot;hello world!&quot;);&#39;</span><br><span class="line">let workerBlob &#x3D; new Blob([script], &#123; type: &quot;text&#x2F;javascript&quot; &#125;);</span><br><span class="line">let url &#x3D; URL.createObjectURL(workerBlob);</span><br><span class="line">let worker &#x3D; new Worker(url);</span><br></pre></td></tr></table></figure>
+<h3 id="2、访问限制"><a href="#2、访问限制" class="headerlink" title="2、访问限制"></a>2、访问限制</h3><p>Worker子线程所在的全局对象，与主线程不在同一个上下文环境，无法读取主线程所在网页的 DOM 对象，也无法使用document、window、parent这些对象，global对象的指向有变更，window需要改写成self，不能执行alert()方法和confirm()等方法，只能读取部分navigator对象内的数据。另外chrome的console.log()倒是可以使用，也支持debugger断点，增加调试的便利性。</p>
+<h3 id="3、使用异步"><a href="#3、使用异步" class="headerlink" title="3、使用异步"></a>3、使用异步</h3><p>Worker子线程中可以使用XMLHttpRequest 对象发出 AJAX 请求，可以使用setTimeout() setInterval()方法，也可使用websocket进行持续链接。也可以通过importScripts(url)加载另外的脚本文件，但是仍然不能跨域。</p>
+<h2 id="应用场景："><a href="#应用场景：" class="headerlink" title="应用场景："></a>应用场景：</h2><h3 id="1、使用专用线程进行数学运算"><a href="#1、使用专用线程进行数学运算" class="headerlink" title="1、使用专用线程进行数学运算"></a>1、使用专用线程进行数学运算</h3><p>Web Worke设计的初衷就是用来做计算耗时任务，大数据的处理，而这种计算放在worker中并不会中断前台用户的操作，避免代码卡顿带来不必要的用户体验。例如处理ajax返回的大批量数据，读取用户上传文件，计算MD5，canvas的位图的过滤，分析视频和声频文件等。worker中除了缺失了DOM和BOM操作能力以外，还是拥有非常强大的js逻辑运算处理的能力的，相当于nodejs一个级别的的运行环境。</p>
+<h3 id="2、高频的用户交互"><a href="#2、高频的用户交互" class="headerlink" title="2、高频的用户交互"></a>2、高频的用户交互</h3><p>高频的用户交互适用于根据用户的输入习惯、历史记录以及缓存等信息来协助用户完成输入的纠错、校正功能等类似场景，用户频繁输入的响应处理同样可以考虑放在web worker中执行。例如，我们可以 做一个像Word一样的应用：当用户打字时，后台立即在词典中进行查找，帮助用户自动纠错等等。</p>
+<h3 id="3、数据的预取"><a href="#3、数据的预取" class="headerlink" title="3、数据的预取"></a>3、数据的预取</h3><p>对于一些有大量数据的前后台交互产品，可以新开一个线程专门用来进行数据的预取和缓冲数据，worker可以用在本地web数据库的行写入和更改，长时间持续的运行，不会被主线程上的活动（比如用户点击按钮、提交表单）打断，也有利于随时响应主线程的通信。也可以配合XMLHttpRequest和websocket进行不断开的通信，实现守卫进程。</p>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p><img src="http://pic1.zhoujie16.cn/squares.svg" alt="img"></p>
+<p>总体来说，兼容性还是不错的， 移动端可以放心使用，桌面端要求不高的话，也可以使用。</p>
+<h2 id="superWorker"><a href="#superWorker" class="headerlink" title="superWorker"></a>superWorker</h2><p>为了更方便快捷的使用web worker，我们封装了一个工具，可以通过模块化的方式编写运行在web worker中的脚本，避免同源策略，减少服务端发送一个额外的url请求，无需了解web worker，就像使用setTimeout一样，快速使用superWorker，提升你的编码效率和运行效率，它有以下优点：<br>1、原生JS实现，无任何依赖库。<br>2、简单快速，摈弃繁琐的创建文件、绑定事件，实现无侵入、无感知运行新线程的代码。<br>3、返回Promise类型的数据，支持链式调用，清晰明了。<br>4、支持多种方式新建worker，包括匿名函数、函数列表、文本文件、html片段、url、类，方便快捷。<br>5、gzipped压缩后仅仅 1.2kb。</p>
+<h3 id="使用教程："><a href="#使用教程：" class="headerlink" title="使用教程："></a>使用教程：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import superWorker from &#39;superWorker&#39;</span><br><span class="line">let worker &#x3D; superWorker(function (a, b) &#123;</span><br><span class="line">    &#x2F;&#x2F; 子线程中要运行的代码</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;);</span><br><span class="line">worker.start(1, 2).then((r)&#x3D;&gt;console.log(r)); &#x2F;&#x2F; 3</span><br></pre></td></tr></table></figure>
+<p>用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">superWorker（code， [type]）</span><br></pre></td></tr></table></figure>
+<p>参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">code：运行的代码， type（非必须）：代码类型，目前支持0、1、2、3、4。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="实现原理："><a href="#实现原理：" class="headerlink" title="实现原理："></a>实现原理：</h3><p>先进行源代码转文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let workerBlob &#x3D; new Blob(code, &#123; type: &quot;text&#x2F;javascript&quot; &#125;);</span><br><span class="line">let url &#x3D; URL.createObjectURL(workerBlob);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>对类型拆分，code参数支持传入匿名函数、函数列表、文本文件、url、HTML内嵌标签、类等功能，首先对传入的代码进行分类匹配，字符串化，然后进行拼接运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">code &#x3D; &#96;($&#123;Function.prototype.toString.call(code)&#125;)($&#123;exportsObjName&#125;)&#96;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> 对于传入的方法，分别在主线程中的exports对象进行标记，和worker子线程中的exportsObjName对象中进行赋值。对于ES6 模块化的代码，进行过滤转译。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 处理 \nexport default function xxx()&#123;&#125;  &#x3D;&gt; exports.default &#x3D; true; exportsObjName.default &#x3D; function xx()&#123;&#125;</span><br><span class="line">code &#x3D; code.replace(&#x2F;^(\s*)export\s+default\s+&#x2F;m, (s, before) &#x3D;&gt; &#123;</span><br><span class="line">    exports.default &#x3D; true;</span><br><span class="line">    return &#96;$&#123;before&#125;$&#123;exportsObjName&#125;.default&#x3D;&#96;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> 形成主线程exports和子线程exportsObjName中的方法进行一一对应。</p>
+<p>worker主线程与主线程进行通讯则是仍然需要通过postMessage方法和onmessage回调事件来进行，这个我们统一进行了双向绑定，分别对主线程和子线程执行setup。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function setup(ctx, pmMethods, callbacks) &#123;</span><br><span class="line">    ctx.addEventListener(&#39;message&#39;, (&#123; data &#125;) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; ……</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> 在主线程中对worker封装了一些快捷的方法，比如关闭线程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">worker.terminate &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    URL.revokeObjectURL(url);</span><br><span class="line">    term.call(this);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> 并把子线程拥有的方法、属性，暴露出来，方便主线程通过传递参数调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">worker.expose &#x3D; methodName &#x3D;&gt; &#123;</span><br><span class="line">    worker[i] &#x3D; function () &#123;</span><br><span class="line">        return worker[&#39;call&#39;](methodName, [].slice.call(arguments));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> 大致如下图：<br><img src="http://pic1.zhoujie16.cn/squares.svg" alt="img"></p>
+<p>欢迎小伙伴们使用以及批评指正。有问题多多反馈，多多交流。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>对于web worker这项新技术，无论在PC还是在移动web，都很实用，腾讯新闻前端组进行了广泛的尝试，Web Worker 的实现为前端程序带来了后台计算的能力，实现了主 UI 线程与复杂计运算线程的分离，从而极大减轻了因计算量大而造成 UI 阻塞而出现的界面渲染卡、掉帧的情况，并且更大程度地利用了终端硬件的性能。superWorker能解决掉事件绑定，同源策略等繁琐的问题，它目前最大的问题在于不兼容IE9，在兼容性要求不是那么严格的地方，尽可能的使用吧！</p>
+<p><img src="http://pic1.zhoujie16.cn/squares.svg" alt="img"></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/03/07/%E5%89%8D%E7%AB%AF/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%9A%E6%A0%87%E7%AD%BE%E9%A1%B5%E9%80%9A%E4%BF%A1/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">浏览器多标签页通信</div></div></a></div><div class="next-post pull-right"><a href="/2019/03/04/%E5%A8%B1%E4%B9%90/%E4%B8%BA%E5%95%A5%E7%A8%8B%E5%BA%8F%E5%91%98%E4%B8%8B%E7%8F%AD%E5%90%8E%E5%8F%AA%E5%85%B3%E6%98%BE%E7%A4%BA%E5%99%A8%E4%BB%8E%E4%B8%8D%E5%85%B3%E7%94%B5%E8%84%91/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">为啥程序员下班后只关显示器从不关电脑</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://gitee.com/zz16/upic/raw/master/2020/04/1586355398747.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">周小米</div><div class="author-info__description">没有高深的知识，没有进阶的技巧。只是，万丈高楼平地起，千里之行始于足下，千里长提溃于蚁穴。能把简单的做好就是不简单，你能走多远，不是在于你有多聪明，而是取决于你有多勤奋，共勉。</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">暂无公告</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFweb-worker"><span class="toc-number">1.</span> <span class="toc-text">什么是web worker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">使用的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%90%8C%E6%BA%90%E9%99%90%E5%88%B6"><span class="toc-number">2.1.</span> <span class="toc-text">1、同源限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E8%AE%BF%E9%97%AE%E9%99%90%E5%88%B6"><span class="toc-number">2.2.</span> <span class="toc-text">2、访问限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E4%BD%BF%E7%94%A8%E5%BC%82%E6%AD%A5"><span class="toc-number">2.3.</span> <span class="toc-text">3、使用异步</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">应用场景：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E4%BD%BF%E7%94%A8%E4%B8%93%E7%94%A8%E7%BA%BF%E7%A8%8B%E8%BF%9B%E8%A1%8C%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97"><span class="toc-number">3.1.</span> <span class="toc-text">1、使用专用线程进行数学运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E9%AB%98%E9%A2%91%E7%9A%84%E7%94%A8%E6%88%B7%E4%BA%A4%E4%BA%92"><span class="toc-number">3.2.</span> <span class="toc-text">2、高频的用户交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E6%95%B0%E6%8D%AE%E7%9A%84%E9%A2%84%E5%8F%96"><span class="toc-number">3.3.</span> <span class="toc-text">3、数据的预取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">兼容性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#superWorker"><span class="toc-number">5.</span> <span class="toc-text">superWorker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B%EF%BC%9A"><span class="toc-number">5.1.</span> <span class="toc-text">使用教程：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="toc-number">5.2.</span> <span class="toc-text">实现原理：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/09/git%E6%8A%80%E5%B7%A7/git%20cherry-pick%20%E6%95%99%E7%A8%8B/" title="git cherry-pick 教程"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git cherry-pick 教程"/></a><div class="content"><a class="title" href="/2021/02/09/git%E6%8A%80%E5%B7%A7/git%20cherry-pick%20%E6%95%99%E7%A8%8B/" title="git cherry-pick 教程">git cherry-pick 教程</a><time datetime="2021-02-09T15:00:22.000Z" title="发表于 2021-02-09 23:00:22">2021-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/09/a/" title="a"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="a"/></a><div class="content"><a class="title" href="/2021/02/09/a/" title="a">a</a><time datetime="2021-02-09T12:08:01.000Z" title="发表于 2021-02-09 20:08:01">2021-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E4%B8%80%E9%94%AE%E4%BC%98%E5%8C%96WindowsServer%E4%B8%BA%E5%AE%B6%E7%94%A8%E7%B3%BB%E7%BB%9F/" title="一键优化Windows Server为家用系统"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一键优化Windows Server为家用系统"/></a><div class="content"><a class="title" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E4%B8%80%E9%94%AE%E4%BC%98%E5%8C%96WindowsServer%E4%B8%BA%E5%AE%B6%E7%94%A8%E7%B3%BB%E7%BB%9F/" title="一键优化Windows Server为家用系统">一键优化Windows Server为家用系统</a><time datetime="2021-02-08T07:30:10.000Z" title="发表于 2021-02-08 15:30:10">2021-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E7%A6%BB%E7%BA%BFKMS%E6%BF%80%E6%B4%BB%E5%B7%A5%E5%85%B7%20HEU%20KMS%20Activator/" title="离线KMS激活工具 HEU KMS Activator"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="离线KMS激活工具 HEU KMS Activator"/></a><div class="content"><a class="title" href="/2021/02/08/Win%E8%BD%AF%E4%BB%B6/%E7%A6%BB%E7%BA%BFKMS%E6%BF%80%E6%B4%BB%E5%B7%A5%E5%85%B7%20HEU%20KMS%20Activator/" title="离线KMS激活工具 HEU KMS Activator">离线KMS激活工具 HEU KMS Activator</a><time datetime="2021-02-08T06:45:30.000Z" title="发表于 2021-02-08 14:45:30">2021-02-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/08/%E5%89%8D%E7%AB%AF/JS%E4%B8%AD%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6/" title="JS中不常用但强大的操作符"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JS中不常用但强大的操作符"/></a><div class="content"><a class="title" href="/2021/02/08/%E5%89%8D%E7%AB%AF/JS%E4%B8%AD%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6/" title="JS中不常用但强大的操作符">JS中不常用但强大的操作符</a><time datetime="2021-02-08T06:17:16.000Z" title="发表于 2021-02-08 14:17:16">2021-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2016 - 2021 By 周小米</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">皖ICP备19002262号 </a> </div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadWaline () {
+  function initWaline () {
+    let initData = {
+      el: '#waline-wrap',
+      serverURL: 'http://waline.zhoujie16.cn',
+      avatar: 'monsterid',
+      path: location.pathname,
+      emojiCDN: '',
+      emojiMaps: {},
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const waline = new Waline(initData)
+  }
+
+  if (typeof Waline === 'function') initWaline() 
+  else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(initWaline)
+}
+
+if ('Waline' === 'Waline' || !false) {
+  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://oss.zhoujie16.cn/cdn/hexo-blog/common.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
